@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
@@ -36,11 +36,13 @@ onAuthStateChanged(auth, async (user) => {
     // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
     userId = uid;
+    getUserData()
     // ...
   } else {
     // User is signed out
     // ...
     userId = null;
+    getUserData();
   }
 });
 
@@ -98,6 +100,10 @@ const signUp = async (name, fatherName, email, password) => {
   return result;
 };
 
+const logout = async () => {
+  await signOut(auth);
+}
+
 const addImageInDatabase = async (image) => {
   let storageRef = ref(storage, `usersImages/${userId}`);
 
@@ -122,4 +128,4 @@ const addDateForAdds = async (addInfo) => {
   await addDoc(collection(db, 'products'), obj);
 };
 
-export { getDateFromDb, login, signUp, getUserData, addDateForAdds, addImageInDatabase };
+export { getDateFromDb, login, signUp, getUserData, addDateForAdds, addImageInDatabase, logout };

@@ -1,0 +1,22 @@
+.user-info-container{
+    padding: 19px 9px;
+    width: 27%;
+    margin: 11px 0px;
+    position:absolute;
+    right: 9%;
+}
+
+.logout-txt{
+    cursor: pointer;
+    font-size: 29px;
+    font-weight: 500;
+    display: block;
+    text-align: left;
+}
+
+.email-txt{
+    display: block;
+    text-align: left;
+    font-size: 25px;
+    font-weight: 400;
+}

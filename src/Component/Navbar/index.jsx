@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Make sure to install react-router-dom if you im
 import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import UserLoggedOrNo from '../UserLoggedOrNo';
+import UserInfoCart from '../UserInfoCart';
 
 const Navbar = () => {
+
+  const [userInfoCartView, setUserInfoCartView] = useState(false);
+  const [userEmail, setUserEmail] = useState(false);
 
   return (
     <div>
@@ -29,12 +33,23 @@ const Navbar = () => {
             </div>
             <input className='input' placeholder='Find Cars, Mobiles Phone and more...' />
             <FontAwesomeIcon className='search-icon' icon={faMagnifyingGlass} />
-            <UserLoggedOrNo />
+            <UserLoggedOrNo setUserEmail={setUserEmail} setUserInfoCartView={setUserInfoCartView} userInfoCartView={userInfoCartView} />
           </div>
         </div>
         <br />
       </nav>
+      {userInfoCartView?<span>
+        <UserInfoCart userEmail={userEmail} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      </span>
+      :''}
     </div>
+    
   );
 };
 
