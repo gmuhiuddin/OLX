@@ -122,4 +122,4 @@ const addDateForAdds = async (addInfo) => {
   await addDoc(collection(db, 'products'), obj);
 };
 
-export { getDateFromDb, login, signUp, getUserData, addDateForAdds, addImageInDatabase }
+export { getDateFromDb, login, signUp, getUserData, addDateForAdds, addImageInDatabase };
