@@ -11,10 +11,10 @@ function UserInfoCart({userEmail}){
         }catch(e){
             alert(e.message)
         }
-    }
+    };
 
 return(
-    <div className='user-info-container'>
+    <div className='user-info-cart'>
         <span className='email-txt'>Email: {userEmail}</span>
         <br />
         <span className='logout-txt' onClick={logoutFunc}>Logout</span>
