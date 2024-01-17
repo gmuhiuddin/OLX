@@ -16,7 +16,7 @@ function UserLoggedOrNo() {
                 console.log(e.message);
             } 
             setLoader(false);
-        }, 999);
+        }, 799);
 
     if (loader) {
         return (

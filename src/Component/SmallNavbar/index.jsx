@@ -19,7 +19,7 @@ function SmallNavbar() {
             console.log(e.message);
         }
         setLoader(false);
-    }, 999);
+    }, 799);
 
     return (
         <div className="small-navbar">
