@@ -28,8 +28,7 @@ function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
             <div>
         <span onClick={() => setUserInfoCartView(!userInfoCartView)} style={{cursor:'pointer', fontSize: 25, marginLeft: 7, fontWeight: '500' }} >{userData.firstname + ' ' + userData.lastname}</span>
         </div>
-            :
-            
+            : 
         <div>
         <span className='login-txt' onClick={() => {
         navigate('/login')

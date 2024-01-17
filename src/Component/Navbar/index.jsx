@@ -9,7 +9,7 @@ import UserInfoCart from '../UserInfoCart';
 const Navbar = () => {
   const [userInfoCartView, setUserInfoCartView] = useState(false);
   const [userEmail, setUserEmail] = useState(false);
-
+  
   return (
     <div>
       <nav className="navbar">

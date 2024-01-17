@@ -1,6 +1,7 @@
 import './style.css';
 import {logout} from '../../Config/firebase';
 import { useNavigate } from 'react-router-dom';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 function UserInfoCart({userEmail}){
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ function UserInfoCart({userEmail}){
         try{
             await logout();
         }catch(e){
-            alert(e.message)
+            alert(e.message);
         }
     };
 
