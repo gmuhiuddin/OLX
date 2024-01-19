@@ -7,17 +7,20 @@ function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
     const [userData, setUserData] = useState();
     const [loader, setLoader] = useState(true);
     const navigate = useNavigate();
+
+        setTimeout(async () => {
+            try {
+                const res = await getUserData();
+                setUserData(res);
+                setUserEmail(res.userEmail);
+            } catch (e) {
+                console.log(e.message);
+            }
+        }, 199);
     
     setTimeout(async () => {
-        try {
-            const res = await getUserData();
-            setUserData(res);
-            setUserEmail(res.userEmail);
-        } catch (e) {
-            console.log(e.message);
-        }
-        setLoader(false)
-    }, 1999);
+        setLoader(false);
+    }, 2999);
 
     return (
 
