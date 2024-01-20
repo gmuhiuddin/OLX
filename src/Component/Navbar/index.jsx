@@ -38,7 +38,7 @@ const Navbar = () => {
         <br />
       </nav>
       {userInfoCartView?<span>
-        <UserInfoCart userEmail={userEmail} />
+        <UserInfoCart setUserInfoCartView={setUserInfoCartView} userEmail={userEmail} />
       <br />
       <br />
       <br />

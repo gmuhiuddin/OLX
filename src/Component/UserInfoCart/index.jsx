@@ -1,15 +1,13 @@
 import './style.css';
 import {logout} from '../../Config/firebase';
-import { useNavigate } from 'react-router-dom';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 
-function UserInfoCart({userEmail}){
-    const navigate = useNavigate();
+function UserInfoCart({userEmail, setUserInfoCartView}){
 
     async function logoutFunc(){
         try{
             await logout();
-        }catch(e){
+            setUserInfoCartView(false);
+            }catch(e){
             alert(e.message);
         }
     };
@@ -18,7 +16,7 @@ return(
     <div className='user-info-cart'>
         <span className='email-txt'>Email: {userEmail}</span>
         <br />
-        <span className='logout-txt' onClick={logoutFunc}>Logout</span>
+        <a className='logout-anchor' href='/' onClick={logoutFunc}>Logout</a>
     </div>
 )
 
