@@ -1,6 +1,7 @@
 import {
     createBrowserRouter,
     RouterProvider,
+    Outlet
   } from "react-router-dom";
 import CartContainer from '../Views/CartContainer';
 import CartSelected from '../Views/SelectedItem';
