@@ -1,8 +1,8 @@
 import {
-    createBrowserRouter,
-    RouterProvider,
-    Outlet
-  } from "react-router-dom";
+  createBrowserRouter,
+  RouterProvider,
+  Outlet
+} from "react-router-dom";
 import CartContainer from '../Views/CartContainer';
 import CartSelected from '../Views/SelectedItem';
 import Login from '../Views/Login';
@@ -11,32 +11,60 @@ import AddSellPost from '../Views/AddSellPost';
 import Navbar from '../Component/Navbar';
 import CategoryNavbar from '../Component/Category-Navbar';
 import SmallNavbar from '../Component/SmallNavbar';
+import { useEffect } from "react";
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <div><Navbar /> <CategoryNavbar /> <CartContainer /></div>,
-    },
-    {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainPage />
+  },
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
         path: "/item/:id",
-        element: <div><SmallNavbar /> <CartSelected /></div>,
-    },
-    {
+        element: <CartSelected />,
+      },
+      {
         path: "/login",
-        element:<div><SmallNavbar /> <Login /></div>,
-    },
-    {
+        element: <Login />,
+      },
+      {
         path: "/signup",
-        element:<div><SmallNavbar /> <SignUP /></div>,
-    },
-    {
-      path: "/addsellpost",
-      element: <div><SmallNavbar /><AddSellPost /></div>,
+        element: <SignUP />,
+      },
+      {
+        path: "/addsellpost",
+        element: < AddSellPost />,
+      }
+    ]
   }
-  ]);
+]);
 
-  function Router(){
-    return <RouterProvider router={router} />
-  };
+function Layout() {
 
-  export default Router;
+  return (
+    <div>
+      <SmallNavbar />
+      <Outlet />
+    </div>
+  )
+};
+
+function MainPage() {
+
+  return (
+    <div>
+      <Navbar />
+      <CategoryNavbar />
+      <CartContainer />
+    </div>
+  )
+};
+
+function Router() {
+  return <RouterProvider router={router} />
+};
+
+export default Router;
