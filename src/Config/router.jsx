@@ -53,55 +53,55 @@ function Layout() {
   const [userData, setUserData] = useState();
   const [user, setUser] = useState();
   const [loader, setLoader] = useState(true);
-  const [pageChangerLoader, setPageChangerLoader] = useState(true);
-  const path = useLocation().pathname;
   const navigate = useNavigate();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+      
+        const uid = user.uid;
+        const userDateFromDb = await getDoc(doc(db, 'userInfo', uid));
+        setUserData(userDateFromDb.data());
+        setUser(true);
+      } else {
+  
+        setUserData(null);
+        setUser(false)
+      };
+      
       setLoader(false);
     });
 
   }, [])
 
   useEffect( () => {
-    
-    async function checkUser(){
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
-        const userDateFromDb = await getDoc(doc(db, 'userInfo', uid));
-        setUserData(userDateFromDb.data());
-
-        if(path == '/login' || path == '/signup'){
-          navigate('/');
-          setPageChangerLoader(false);
-        };
-
-        // ...
-      } else {
-        // User is signed out
-        // ...
-        if(path == '/addsellpost'){
-          navigate('/');
-          setPageChangerLoader(false);
-        };
-
-
-        setUserData(null);
-      }
-    }
-
     checkUser();
-  }, [path, user]);
+  }, [window.location.pathname, user]);
+  
+  async function checkUser(){
+    const path = window.location.pathname;
 
-  if(pageChangerLoader){
-    return(
-    <Loader />
-      )
+    if (user) {
+
+      if(path == '/login' || path == '/signup'){
+        navigate('/');
+      };
+
+    } else if(user == false) {
+
+      if(path == '/addsellpost'){
+        navigate('/');
+      };
+
+    }
   }
+
+if(user == undefined){
+  return(
+    <Loader />
+  )
+}
 
   return (
     <div>
