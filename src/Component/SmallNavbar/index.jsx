@@ -1,36 +1,11 @@
 import './style.css'
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import SmallLoader from '../SmallLoader'
-import {onAuthStateChanged} from "firebase/auth";
-import { getDoc, doc } from "firebase/firestore";
-import { auth, db } from '../../Config/firebase';
+import SmallLoader from '../SmallLoader';
 
-function SmallNavbar() {
-    const [userData, setUserData] = useState();
-    const [loader, setLoader] = useState(true);
+function SmallNavbar({userData, loader}) {
     const navigate = useNavigate();
-
-    useEffect(() => {
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/auth.user
-              const uid = user.uid;
-              const userDateFromDb = await getDoc(doc(db, 'userInfo', uid));
-              setUserData(userDateFromDb.data());
-              // ...
-            } else {
-              // User is signed out
-              // ...
-              setUserData(null);
-            }
-            setLoader(false)
-          });
-
-    }, [])
 
     return (
         <div className="small-navbar">
