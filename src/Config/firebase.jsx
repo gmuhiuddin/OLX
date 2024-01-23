@@ -14,11 +14,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
+export const db = getFirestore(app);
+export const auth = getAuth(app);
 const storage = getStorage(app);
 let userId;
-let userData;
 
 const getDateFromDb = async (id) => {
   if (id) {
@@ -37,7 +36,6 @@ onAuthStateChanged(auth, async (user) => {
     // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
     userId = uid;
-    userData = await getDoc(doc(db, 'userInfo', userId));
     // ...
   } else {
     // User is signed out
@@ -46,10 +44,6 @@ onAuthStateChanged(auth, async (user) => {
     userData = null;
   }
 });
-
-export const getUserData = () => {
-  return userData.data()?userData.data():null;
-}
 
 const login = async (email, password) => {
   var result;

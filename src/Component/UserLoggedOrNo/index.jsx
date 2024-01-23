@@ -1,26 +1,34 @@
 import { useNavigate } from 'react-router-dom';
-import { getUserData } from '../../Config/firebase';
+import { auth, db } from '../../Config/firebase';
 import SmallLoader from '../SmallLoader';
 import { useState, useEffect } from 'react';
+import {onAuthStateChanged} from "firebase/auth";
+import { getDoc, doc } from "firebase/firestore";
 
 function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
     const [userData, setUserData] = useState();
     const [loader, setLoader] = useState(true);
     const navigate = useNavigate();
 
-        setTimeout(async () => {
-            try {
-                const res = await getUserData();
-                setUserData(res);
-                setUserEmail(res.userEmail);
-            } catch (e) {
-                console.log(e.message);
-            }
-        }, 199);
-    
-    setTimeout(async () => {
-        setLoader(false);
-    }, 2999);
+        useEffect(() => {
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                  // User is signed in, see docs for a list of available properties
+                  // https://firebase.google.com/docs/reference/js/auth.user
+                  const uid = user.uid;
+                  const userDateFromDb = await getDoc(doc(db, 'userInfo', uid));
+                  setUserEmail(userDateFromDb.data().userEmail)
+                  setUserData(userDateFromDb.data());
+                  // ...
+                } else {
+                  // User is signed out
+                  // ...
+                  setUserData(null);
+                }
+                setLoader(false)
+              });
+
+        }, [])
 
     return (
 
