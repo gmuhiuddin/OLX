@@ -10,6 +10,7 @@ import CartSelected from '../Views/SelectedItem';
 import Login from '../Views/Login';
 import SignUP from '../Views/SignUp';
 import AddSellPost from '../Views/AddSellPost';
+import ChatsPage from '../Views/ChatsPage';
 import Navbar from '../Component/Navbar';
 import CategoryNavbar from '../Component/Category-Navbar';
 import SmallNavbar from '../Component/SmallNavbar';
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/item/:id",
         element: <CartSelected />,
+      },
+      {
+        path: "/chats/:userId",
+        element: <ChatsPage />,
       },
       {
         path: "/login",

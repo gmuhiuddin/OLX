@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Loader from '../Loader';
 import './style.css';
@@ -13,9 +13,9 @@ function SeletedItem() {
 
     const [product, setProduct] = useState();
     const [isLiked, setIsLiked] = useState(false);
-    const { id } = useParams();
     const navigate = useNavigate();
-    
+    const { id } = useParams();
+
     const dicountOutOf100Per = 100 - product?.discountPercentage;
     const discountedPrice = product?.price / 100 * dicountOutOf100Per;
 
@@ -27,6 +27,8 @@ function SeletedItem() {
         const res = await getDateFromDb(id)
         setProduct(res)
     };
+
+    console.log(product);
 
     if (!product) {
         return <Loader />
@@ -50,7 +52,7 @@ function SeletedItem() {
                         <button className='show-phone-numer-btn'><FontAwesomeIcon style={{ marginRight: 9, fontSize: 25 }} icon={faPhone} />Show Phone Number</button>
                         <br />
                         <br />
-                        <button className='chat-btn'> <FontAwesomeIcon style={{ marginRight: 9, fontSize: 25 }} icon={faComments} />Chat</button>
+                        <button onClick={() => product.userId?navigate(`/chats/${product.userId}`):alert('User is not defined')} className='chat-btn'> <FontAwesomeIcon style={{ marginRight: 9, fontSize: 25 }} icon={faComments} />Chat</button>
                     </div>
                     <br />
                     <br />

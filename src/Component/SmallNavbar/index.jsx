@@ -10,7 +10,7 @@ function SmallNavbar({userData, loader}) {
     return (
         <div className="small-navbar">
             <div style={{ display: 'flex' }}>
-                <div onClick={() => navigate('/')} className='back-btn'>
+                <div onClick={() => navigate(-1)} className='back-btn'>
                     <FontAwesomeIcon style={{ fontSize: 31, color: 'rgb(50, 50, 50)' }} icon={faArrowLeft} />
                 </div>
                 <img onClick={() => navigate('/')} className='olx-image' src='https://www.olx.com.pk/assets/logo_noinline.1cdf230e49c0530ad4b8d43e37ecc4a4.svg' />
