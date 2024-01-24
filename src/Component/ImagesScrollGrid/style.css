@@ -20,6 +20,7 @@
 
 .image {
   margin: 0 auto;
+  min-width: 449px;
   width: auto;
   max-height: 75vh; /* Adjust as needed */
   opacity: 1;
