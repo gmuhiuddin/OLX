@@ -26,6 +26,16 @@
     font-size: 19px;
 }
 
+.sell-form-container select {
+    height: 7vh;
+    width: 89%;
+    border-radius: 9px;
+    outline: none;
+    border: none;
+    margin: 11px 19px;
+    font-size: 21px;
+}
+
 .sell-form-container textarea {
     min-height: 15vh;
     max-height: 15vh;
@@ -92,4 +102,9 @@
 
 .important-txt{
     color: rgb(231, 23, 23);
+}
+
+.add-multiple-images-conatiner{
+    display: flex;
+    flex-wrap: wrap;
 }

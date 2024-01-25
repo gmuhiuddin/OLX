@@ -28,8 +28,6 @@ function SeletedItem() {
         setProduct(res)
     };
 
-    console.log(product);
-
     if (!product) {
         return <Loader />
     };

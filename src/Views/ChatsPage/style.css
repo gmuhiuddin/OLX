@@ -5,14 +5,14 @@
     border-radius: 9px;
 }
 
-form {
+.chat-container form {
     display: flex;
     align-items: center;
     padding: 11px;
     background-color: rgb(193, 193, 193);
 }
 
-form input {
+.chat-container form input {
     padding: 11px 5px;
     font-size: 23px;
     width: 93%;
@@ -21,7 +21,7 @@ form input {
     border: none;
 }
 
-i {
+.chat-container form label i {
     font-size: 29px;
     margin: 5px 19px;
     cursor: pointer;

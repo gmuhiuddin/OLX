@@ -123,7 +123,8 @@ const ChatsPage = () => {
         </label>
       </form>
     </div>
-  )
+  );
+  
 }
 
 export default ChatsPage;

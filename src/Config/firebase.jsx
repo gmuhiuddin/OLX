@@ -113,7 +113,7 @@ const addDateForAdds = async (addInfo) => {
   const images = ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3p3U7z5Gamd4oORfcHkwgLvpE-vCFM6pxpQ&usqp=CAU', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRUywYA3hf5Jaz8hzHeCzUWAAdPQ3W63dAzw&usqp=CAU'];
 
   const userData = await getDoc(doc(db, 'userInfo', userId));
-
+  
   const obj = {
     ...addInfo,
     discountPercentage: discountPercentage,
