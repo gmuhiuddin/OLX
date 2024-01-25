@@ -11,10 +11,10 @@ const ChatsPage = () => {
   const { anotherUserId } = useParams();
   const [userData, setUserData] = useState();
   const [chats, setChats] = useState();
-  const navigate = useNavigate();
   const containerRef = useRef(null);
+  const navigate = useNavigate();
 
-  const scrollToTop = () => {
+  const scrollToBottom = () => {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
@@ -33,16 +33,25 @@ const ChatsPage = () => {
           userId: userDateFromDb.id
         });
 
-        getMsgs();
         // ...
       } else {
         // User is signed out
         // ...
         setUserData(null);
       }
-
     });
+
   }, []);
+
+  useEffect(() => {
+    getMsgs();
+
+    setTimeout(() => {
+      scrollToBottom();
+      
+    }, 1000);
+    
+  }, [userData])
 
   const chatIdGenerator = () => {
     const { userId } = userData;
@@ -72,14 +81,14 @@ const ChatsPage = () => {
     const chatId = await chatIdGenerator();
     const msgRef = query(collection(db, 'usersChats'), orderBy("time"), where("chatId", "==", chatId));
 
-    onSnapshot(msgRef, (data) => {
-
+     onSnapshot(msgRef, (data) => {
+      
       if (data.empty) {
         setChats('No chats');
       } else {
         setChats(data.docs);
-        scrollToTop();
 
+        scrollToBottom();
       }
 
     })
@@ -92,12 +101,14 @@ const ChatsPage = () => {
         {!chats ? <SmallLoader /> : ''}
         {typeof chats == 'object' ?
           chats.map((element) => {
-
+            
             return (
               <div className={element.data().userId == userData.userId ? 'userChat' : 'anotherUserChat'}>
                 <span class="user-messsage">{element.data().userMsg}</span>
                 <br />
-                {/* <span class="chat-time">{element.data().time.toDate().toString()}</span> */}
+                <span class="chat-time">{dayjs(element.data().time?.toDate()).format(
+                "DD-MM-YYYY hh:mm"
+            )}</span>
               </div>
             )
           })
