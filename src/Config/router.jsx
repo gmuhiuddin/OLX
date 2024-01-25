@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         element: <CartSelected />,
       },
       {
-        path: "/chats/:userId",
+        path: "/chats/:anotherUserId",
         element: <ChatsPage />,
       },
       {

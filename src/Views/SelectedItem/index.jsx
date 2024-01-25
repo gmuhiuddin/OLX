@@ -38,7 +38,7 @@ function SeletedItem() {
         <div>
             <div className='container'>
                 <ImageScroll images={product.images} />
-                <div style={{ width: '48%', display: 'flex', flexDirection: 'column', height: '79vh' }}>
+                <div style={{ width: '51%', display: 'flex', flexDirection: 'column', height: '79vh' }}>
                     <div className="user-info-container">
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <img className='user-image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQLHZh0aF5Og2DF4G19yPVx_QGjXfaBByFZA&usqp=CAU' alt='user-image' />

@@ -47,8 +47,8 @@ i {
     display: block;
     text-align: left;
     padding: 3px 7px;
-font-size: 19px;
-border-radius: 9px;
+    font-size: 19px;
+    border-radius: 9px;
 
 }
 
@@ -59,9 +59,21 @@ border-radius: 9px;
     margin-right: auto;
     margin-left: 15px;
     padding: 3px 7px;
-font-size: 19px;
+    font-size: 19px;
     margin-top: 11px;
     display: block;
     border-radius: 9px;
     text-align: left;
+}
+
+.chat-time {
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 5px;
+    display: block;
+    text-align: right;
+}
+
+.user-messsage {
+    font-size: 23px;
 }

@@ -6,6 +6,7 @@ import {onAuthStateChanged} from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 
 function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
+  
     const [userData, setUserData] = useState();
     const [loader, setLoader] = useState(true);
     const navigate = useNavigate();

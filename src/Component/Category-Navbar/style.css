@@ -1,12 +1,12 @@
 .icon-nav-container {
-    width: 91%;
+    width: 93%;
     padding-top: 39px;
     margin: 0 auto;
   }
   
   .all-categary-txt {
     display: flex;
-    font-size: 29px;
+    font-size: medium;
     font-weight: 700;
     margin-left: 49px;
   }
@@ -18,14 +18,15 @@
   }
   
   .small-category-container {
-    padding: 9px 7px;
-    margin: 9px;
+    width: 9%;
+    padding: 7px;
+    margin: 11px;
     cursor: pointer;
   }
 
   .small-category-container:hover {
     transition: 500ms;
-    padding: 11px 9px;
+    padding: 9px;
     margin: 7px;
     cursor: pointer;
     font-size: 25px;
@@ -33,16 +34,16 @@
 
   .small-category-container img:hover {
     transition: 700ms;
-    height: 115px;
-    width: 115px;
+    width: 95%;
     margin-top: 0px;
+    margin-left: 0px;
   }
   
   .small-category-container img {
     border-radius: 50%;
     margin: 0 auto;
-    height: 109px;
-    width: 109px;
+    margin-left: 3px;
+    width: 91%;
     margin-top: 5px;
   }
   
