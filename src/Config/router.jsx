@@ -46,7 +46,7 @@ const router = createBrowserRouter([
         element: <SignUP />,
       },
       {
-        path: "/addsellpost",
+        path: "/addSellPost",
         element: < AddSellPost />,
       }
     ]
@@ -95,7 +95,7 @@ function Layout() {
 
     } else if(user == false) {
 
-      if(path == '/addsellpost'){
+      if(path == '/addSellPost'){
         navigate('/');
       };
 
