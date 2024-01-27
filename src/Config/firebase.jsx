@@ -3,6 +3,7 @@ import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWith
 import { getFirestore, collection, addDoc, getDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyBRoL0wtWFQpsLsOR51GvN3nCgoX8IEzgY",
   authDomain: "olx-clone-b4869.firebaseapp.com",
@@ -31,17 +32,16 @@ const getDateFromDb = async (id) => {
 }
 
 onAuthStateChanged(auth, async (user) => {
+  
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
+
     const uid = user.uid;
     userId = uid;
-    // ...
+
   } else {
-    // User is signed out
-    // ...
+
     userId = null;
-    userData = null;
+
   }
 });
 

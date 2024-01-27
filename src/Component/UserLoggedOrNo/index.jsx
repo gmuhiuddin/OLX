@@ -1,15 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../Config/firebase';
 import SmallLoader from '../SmallLoader';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {onAuthStateChanged} from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
+import nodeContext from '../../note/nodeContext'
 
 function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
   
     const [userData, setUserData] = useState();
     const [loader, setLoader] = useState(true);
+    const useContextState = useContext(nodeContext);
     const navigate = useNavigate();
+
+    console.log(useContextState);
 
         useEffect(() => {
             onAuthStateChanged(auth, async (user) => {
@@ -20,6 +24,7 @@ function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
                   const userDateFromDb = await getDoc(doc(db, 'userInfo', uid));
                   setUserEmail(userDateFromDb.data().userEmail)
                   setUserData(userDateFromDb.data());
+                  useContextState.updateUserData(userDateFromDb.data())
                   // ...
                 } else {
                   // User is signed out
