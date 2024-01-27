@@ -14,6 +14,7 @@ function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
     const navigate = useNavigate();
 
         useEffect(() => {
+          
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
                   // User is signed in, see docs for a list of available properties
@@ -22,12 +23,15 @@ function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
                   const userDateFromDb = await getDoc(doc(db, 'userInfo', uid));
                   setUserEmail(userDateFromDb.data().userEmail)
                   setUserData(userDateFromDb.data());
+                  console.log(user);
+                  useContextState.setUser(user);
                   useContextState.updateUserData(userDateFromDb.data());
                   // ...
                 } else {
                   // User is signed out
                   // ...
                   setUserData(null);
+                  useContextState.setUser(null);
                 }
                 setLoader(false)
               });

@@ -30,7 +30,7 @@ function Login() {
                         <br />
                         <button type="submit">Login</button>
                     </form>
-                    <p style={{ fontSize: 21 }}>You don`t have an account <a style={{ textDecoration: 'none', color: 'rgb(128, 25, 207)', textDecoration:'underline', cursor:'pointer' }} onClick={() => navigate('/signup')}>Sign Up</a></p>
+                    <p style={{ fontSize: 21 }}>You don`t have an account <a style={{ textDecoration: 'underline', color: 'rgb(128, 25, 207)', cursor:'pointer' }} onClick={() => navigate('/signup')}>Sign Up</a></p>
                 </div>
             </div>
         </div>

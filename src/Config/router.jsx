@@ -15,11 +15,9 @@ import ChatsPage from '../Views/ChatsPage';
 import Navbar from '../Component/Navbar';
 import CategoryNavbar from '../Component/Category-Navbar';
 import SmallNavbar from '../Component/SmallNavbar';
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { getDoc, doc } from "firebase/firestore";
-import { auth, db } from './firebase';
+import { useContext, useEffect, useState } from "react";
 import Loader from "../Views/Loader";
+import nodeContext from '../note/nodeContext'
 
 const router = createBrowserRouter([
   {
@@ -59,45 +57,35 @@ function Layout() {
   const [userData, setUserData] = useState();
   const [user, setUser] = useState();
   const [loader, setLoader] = useState(true);
-  const {pathname} = useLocation();
-  const {anotherUserId} = useParams();
+  const { pathname } = useLocation();
+  const { anotherUserId } = useParams();
+  const contextState = useContext(nodeContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-      
-        const uid = user.uid;
-        const userDateFromDb = await getDoc(doc(db, 'userInfo', uid));
-        setUserData(userDateFromDb.data());
-        setUser(true);
-      } else {
   
-        setUserData(null);
-        setUser(false)
-      };
-      
-      setLoader(false);
-    });
+  useEffect(() => {
+    console.log(user);
+
+    setUserData(contextState.userData);
+    setUser(contextState.user);
+    setLoader(false);
 
   }, [])
 
-  useEffect( () => {
+  useEffect(() => {
     checkUser();
   }, [pathname, user]);
-  
-  async function checkUser(){
+
+  async function checkUser() {
 
     if (user) {
 
-      if(pathname == '/login' || pathname == '/signup'){
+      if (pathname == '/login' || pathname == '/signup') {
         navigate('/');
       };
 
-    } else if(user == false) {
+    } else if (user == false) {
 
-      if(pathname == '/addSellPost' || pathname == `/chats/${anotherUserId}`){
+      if (pathname == '/addSellPost' || pathname == `/chats/${anotherUserId}`) {
         navigate('/');
       };
 
@@ -105,11 +93,11 @@ function Layout() {
 
   }
 
-if(user == undefined){
-  return(
-    <Loader />
-  )
-}
+  if (user == undefined) {
+    return (
+      <Loader />
+    )
+  }
 
   return (
     <div>

@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './style.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import { onAuthStateChanged } from "firebase/auth";
 import { getDoc, collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy } from "firebase/firestore";
-import { auth, db } from '../../Config/firebase';
-import SmallLoader from '../../Component/SmallLoader'
+import { auth, db, addUserMsg } from '../../Config/firebase';
+import SmallLoader from '../../Component/SmallLoader';
+import nodeContext from '../../note/nodeContext';
 
 const ChatsPage = () => {
   const { anotherUserId } = useParams();
   const [userData, setUserData] = useState();
   const [chats, setChats] = useState();
   const containerRef = useRef(null);
+  const contextState = useContext(nodeContext);
   const navigate = useNavigate();
 
   const scrollToBottom = () => {
@@ -21,26 +22,7 @@ const ChatsPage = () => {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
-        const userDateFromDb = await getDoc(doc(db, 'userInfo', uid));
-
-        setUserData({
-          ...userDateFromDb.data(),
-          userId: userDateFromDb.id
-        });
-
-        // ...
-      } else {
-        // User is signed out
-        // ...
-        setUserData(null);
-      }
-    });
-
+    setUserData(contextState.userData);
   }, []);
 
   useEffect(() => {
@@ -48,7 +30,6 @@ const ChatsPage = () => {
 
     setTimeout(() => {
       scrollToBottom();
-      
     }, 1000);
     
   }, [userData])
@@ -66,12 +47,12 @@ const ChatsPage = () => {
 
     const chatId = await chatIdGenerator();
 
-    await addDoc(collection(db, 'usersChats'), {
+    addUserMsg({
       userMsg: e.target[0].value,
       userId: userData.userId,
       chatId,
       time: serverTimestamp()
-    })
+    }, chatId)
 
     e.target[0].value = '';
   };

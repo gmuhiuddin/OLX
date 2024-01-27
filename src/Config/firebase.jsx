@@ -2,7 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-
+import { useContext } from "react";
+import nodeContext from '../note/nodeContext'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRoL0wtWFQpsLsOR51GvN3nCgoX8IEzgY",
@@ -29,7 +30,7 @@ const getDateFromDb = async (id) => {
     const result = await getDocs(collection(db, 'products'))
     return result;
   }
-}
+};
 
 onAuthStateChanged(auth, async (user) => {
   
@@ -50,12 +51,10 @@ const login = async (email, password) => {
 
   await signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in 
       const user = userCredential.user;
       userId = user.id
 
       result = 'user is succesfully login';
-      // ...
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -96,7 +95,7 @@ const signUp = async (name, fatherName, email, password) => {
 
 const logout = async () => {
   await signOut(auth);
-}
+};
 
 const addImageInDatabase = async (image) => {
   let storageRef = ref(storage, `usersImages/${userId}`);
@@ -104,7 +103,7 @@ const addImageInDatabase = async (image) => {
   await uploadBytes(storageRef, image);
   const url = await getDownloadURL(storageRef);
   return url;
-}
+};
 
 const addDateForAdds = async (addInfo) => {
 
@@ -126,4 +125,8 @@ const addDateForAdds = async (addInfo) => {
   await addDoc(collection(db, 'products'), obj);
 };
 
-export { getDateFromDb, login, signUp, addDateForAdds, addImageInDatabase, logout };
+const addUserMsg = async (msgInfo) => {
+await addDoc(collection(db, 'usersChats'), msgInfo)
+};
+
+export { getDateFromDb, login, signUp, addDateForAdds, addImageInDatabase, logout, addUserMsg };
