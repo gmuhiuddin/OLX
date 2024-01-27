@@ -95,7 +95,7 @@ function Layout() {
 
     } else if(user == false) {
 
-      if(path == '/addSellPost'){
+      if(path == '/addSellPost' || path == '/chats/:anotherUserId'){
         navigate('/');
       };
 
