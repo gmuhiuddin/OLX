@@ -3,7 +3,8 @@ import {
   RouterProvider,
   Outlet,
   useNavigate,
-  useLocation
+  useLocation,
+  useParams
 } from "react-router-dom";
 import CartContainer from '../Views/CartContainer';
 import CartSelected from '../Views/SelectedItem';
@@ -58,6 +59,8 @@ function Layout() {
   const [userData, setUserData] = useState();
   const [user, setUser] = useState();
   const [loader, setLoader] = useState(true);
+  const {pathname} = useLocation();
+  const {anotherUserId} = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,24 +85,24 @@ function Layout() {
 
   useEffect( () => {
     checkUser();
-  }, [window.location.pathname, user]);
+  }, [pathname, user]);
   
   async function checkUser(){
-    const path = window.location.pathname;
 
     if (user) {
 
-      if(path == '/login' || path == '/signup'){
+      if(pathname == '/login' || pathname == '/signup'){
         navigate('/');
       };
 
     } else if(user == false) {
 
-      if(path == '/addSellPost' || path == '/chats/:anotherUserId'){
+      if(pathname == '/addSellPost' || pathname == `/chats/${anotherUserId}`){
         navigate('/');
       };
 
     }
+
   }
 
 if(user == undefined){
