@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <CartSelected />,
       },
       {
-        path: "/chats/:anotherUserId",
+        path: "/chats/:productId",
         element: <ChatsPage />,
       },
       {
@@ -63,7 +63,6 @@ function Layout() {
   const navigate = useNavigate();
   
   useEffect(() => {
-    console.log(user);
 
     setUserData(contextState.userData);
     setUser(contextState.user);

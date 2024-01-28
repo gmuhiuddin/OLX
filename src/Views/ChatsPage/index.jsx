@@ -2,13 +2,12 @@ import React, { useContext } from 'react';
 import './style.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import { getDoc, collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy } from "firebase/firestore";
-import { auth, db, addUserMsg } from '../../Config/firebase';
+import { addUserMsg, getUsersMsg } from '../../Config/firebase';
 import SmallLoader from '../../Component/SmallLoader';
 import nodeContext from '../../note/nodeContext';
 
 const ChatsPage = () => {
-  const { anotherUserId } = useParams();
+  const { productId } = useParams();
   const [userData, setUserData] = useState();
   const [chats, setChats] = useState();
   const containerRef = useRef(null);
@@ -37,7 +36,7 @@ const ChatsPage = () => {
   const chatIdGenerator = () => {
     const { userId } = userData;
 
-    let chatId = userId < anotherUserId ? userId + anotherUserId : anotherUserId + userId;
+    let chatId = userId < productId ? userId + productId : productId + userId;
 
     return chatId;
   };
@@ -51,8 +50,7 @@ const ChatsPage = () => {
       userMsg: e.target[0].value,
       userId: userData.userId,
       chatId,
-      time: serverTimestamp()
-    }, chatId)
+    })
 
     e.target[0].value = '';
   };
@@ -60,19 +58,17 @@ const ChatsPage = () => {
   const getMsgs = async () => {
 
     const chatId = await chatIdGenerator();
-    const msgRef = query(collection(db, 'usersChats'), orderBy("time"), where("chatId", "==", chatId));
 
-     onSnapshot(msgRef, (data) => {
-      
-      if (data.empty) {
-        setChats('No chats');
-      } else {
-        setChats(data.docs);
+    const chatsData = getUsersMsg(chatId);
 
-        scrollToBottom();
-      }
-
+    chatsData
+    .then(data => {
+      setChats(data);
     })
+    .catch(err => {
+      console.log(err);
+      setChats(err)
+    });
 
   };
 

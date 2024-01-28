@@ -1,9 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import { getFirestore, collection, addDoc, getDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { useContext } from "react";
-import nodeContext from '../note/nodeContext'
+import { useContext, useState } from "react";
+import nodeContext from '../note/nodeContext';
+import { getFirestore, getDocs, getDoc,  collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRoL0wtWFQpsLsOR51GvN3nCgoX8IEzgY",
@@ -24,7 +24,10 @@ let userId;
 const getDateFromDb = async (id) => {
   if (id) {
     const result = await getDoc(doc(db, 'products', id))
-    return result.data();
+    return {
+      ...result.data(),
+      id:result.id
+    };
   }
   else {
     const result = await getDocs(collection(db, 'products'))
@@ -126,7 +129,31 @@ const addDateForAdds = async (addInfo) => {
 };
 
 const addUserMsg = async (msgInfo) => {
-await addDoc(collection(db, 'usersChats'), msgInfo)
+
+await addDoc(collection(db, 'usersChats'), {
+  ...msgInfo,
+  time: serverTimestamp()
+});
+
 };
 
-export { getDateFromDb, login, signUp, addDateForAdds, addImageInDatabase, logout, addUserMsg };
+const getUsersMsg = async (chatId) => {
+
+  const msgRef = query(collection(db, 'usersChats'), orderBy("time"), where("chatId", "==", chatId));
+
+ const abc = new Promise((resolve, reject) => {
+  onSnapshot(msgRef, (data) => {
+
+    if(data.empty){
+      reject('on Chats')
+    }else{
+      resolve(data.docs)
+    }
+  })
+
+ })
+  
+ return abc;
+};
+
+export { getDateFromDb, login, signUp, addDateForAdds, getUsersMsg, addImageInDatabase, logout, addUserMsg };

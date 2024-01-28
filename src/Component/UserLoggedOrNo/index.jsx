@@ -23,9 +23,12 @@ function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
                   const userDateFromDb = await getDoc(doc(db, 'userInfo', uid));
                   setUserEmail(userDateFromDb.data().userEmail)
                   setUserData(userDateFromDb.data());
-                  console.log(user);
+                  
                   useContextState.setUser(user);
-                  useContextState.updateUserData(userDateFromDb.data());
+                  useContextState.updateUserData({
+                    ...userDateFromDb.data(),
+                    userId:userDateFromDb.id
+                  });
                   // ...
                 } else {
                   // User is signed out

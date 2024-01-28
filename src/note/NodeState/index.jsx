@@ -5,7 +5,7 @@ function NodeState(props) {
 
     const [userData, setUserData] = useState();
     const [user, setUser] = useState();
-console.log(user);
+    
     const updateUserData = (data) => {
         setUserData(data);
     };
