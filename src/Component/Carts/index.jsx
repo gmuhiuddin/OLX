@@ -38,7 +38,7 @@ function Carts({ products }) {
             <StarRating rating={rating} />
             <br />
         </div>
-    )
-}
+    );
+};
 
 export default Carts;
