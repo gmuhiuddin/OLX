@@ -39,7 +39,7 @@ function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
                 setLoader(false)
               });
 
-        }, [])
+        }, []);
 
     return (
 
