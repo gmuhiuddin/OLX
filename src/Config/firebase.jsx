@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { getFirestore, getDocs, getDoc, collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy } from "firebase/firestore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRoL0wtWFQpsLsOR51GvN3nCgoX8IEzgY",
@@ -18,7 +18,6 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 const storage = getStorage(app);
-const dispatch = useDispatch();
 let userId;
 
 const getDateFromDb = async (id) => {
@@ -35,29 +34,41 @@ const getDateFromDb = async (id) => {
   }
 };
 
-  onAuthStateChanged(auth, async (user) => {
+  export const getUserInfo = () => {
 
-    if (user) {
+    const res = new Promise((resolve, reject) => {
 
-      const uid = user.uid;
-      userId = uid;
-      const userDataRef = doc(db, 'userInfo', uid);
+      onAuthStateChanged(auth, async (user) => {
 
-      const userData = await getDoc(userDataRef);
+        if (user) {
+    
+          const uid = user.uid;
+          userId = uid;
+          const userDataRef = doc(db, 'userInfo', uid);
+    
+          const userData = await getDoc(userDataRef);
+    
+          const obj = {
+            user,
+            ...userData.data(),
+            userId : userData.id
+          };
 
-      const obj = {
-        user,
-        ...userData.data(),
-        userId : userData.id
-      };
+          resolve(obj);
+    
+        } else {
+    
+          userId = null;
+          reject('User is not found');
 
+        }
+    
+      });
+    })
 
-    } else {
+    return res;
 
-      userId = null;
-
-    }
-  });
+  }; 
 
 const login = async (email, password) => {
   var result;
