@@ -25,15 +25,15 @@ function SignUp() {
                     <span>Sign Up</span>
                     <form onSubmit={signUporm}>
                         <br />
-                        <input minlength="3" class="input" type="text" placeholder="First Name" required />
+                        <input minlength="3" className="input" type="text" placeholder="First Name" required />
                         <br />
-                        <input minlength="3" class="input" type="text" placeholder="Last Name" required />
+                        <input minlength="3" className="input" type="text" placeholder="Last Name" required />
                         <br />
-                        <input class="input" type="email" placeholder="Email" required />
+                        <input className="input" type="email" placeholder="Email" required />
                         <br />
-                        <input class="input" minlength="8" placeholder="Password" type="password" required />
+                        <input className="input" minlength="8" placeholder="Password" type="password" required />
                         <br />
-                        <input class="input" onChange={(e) => e.target.style.boxShadow  = '0px 0px 7px rgb(0, 0, 0)'} minlength="8" placeholder="Repeat Password" type="password" required />
+                        <input className="input" onChange={(e) => e.target.style.boxShadow  = '0px 0px 7px rgb(0, 0, 0)'} minlength="8" placeholder="Repeat Password" type="password" required />
                         <br />
                         <button type="submit" >Sign up</button>
                     </form>

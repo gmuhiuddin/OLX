@@ -24,9 +24,9 @@ function Login() {
 
                     <form onSubmit={loginForm}>
                         <br />
-                        <input class="input" type="email" placeholder="Email" required />
+                        <input className="input" type="email" placeholder="Email" required />
                         <br />
-                        <input class="input" minlength="8" placeholder="Password" type="password" required />
+                        <input className="input" minLength="8" placeholder="Password" type="password" required />
                         <br />
                         <button type="submit">Login</button>
                     </form>

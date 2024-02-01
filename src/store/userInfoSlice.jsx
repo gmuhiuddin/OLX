@@ -6,12 +6,12 @@ const counterSlice = createSlice({
     userInfo: undefined
   },
   reducers: {
-    updataUser: (state, data) => {
+    updateUser: (state, data) => {
       state.userInfo = data.payload
     }
   }
 })
 
-export const { updataUser } = counterSlice.actions;
+export const { updateUser } = counterSlice.actions;
 
 export default counterSlice;

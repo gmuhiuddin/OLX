@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import UserLoggedOrNo from '../UserLoggedOrNo';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import UserInfoCart from '../UserInfoCart';
+import { useNavigate } from 'react-router-dom';
+import SmallLoader from '../SmallLoader';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+
   const [userInfoCartView, setUserInfoCartView] = useState(false);
-  const [userEmail, setUserEmail] = useState(false);
+  const [userData, setUserData] = useState();
+  const [loader, setLoader] = useState(true);
+  const res = useSelector(res => res.userInfo);
+  const navigate = useNavigate();
   
+  useEffect(() => {
+    // setUserData(res?.userData);
+    alert()
+  }, []);
+
+  if(userData){
+    setLoader(false)
+  };
+
   return (
     <div>
       <nav className="navbar">
@@ -31,23 +46,46 @@ const Navbar = () => {
             </div>
             <input className='input' placeholder='Find Cars, Mobiles Phone and more...' />
             <FontAwesomeIcon className='search-icon' icon={faMagnifyingGlass} />
-            <UserLoggedOrNo setUserEmail={setUserEmail} setUserInfoCartView={setUserInfoCartView} userInfoCartView={userInfoCartView} />
+
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {loader ?
+                <SmallLoader /> :
+                userData ?
+                  <div>
+                    <span onClick={() => setUserInfoCartView(!userInfoCartView)} style={{ cursor: 'pointer', fontSize: 25, marginLeft: 7, fontWeight: '500' }} >{userData.firstname + ' ' + userData.lastname}</span>
+                  </div>
+                  :
+                  <div>
+                    <span className='login-txt' onClick={() => {
+                      navigate('/login')
+                    }}>Login</span>
+                  </div>
+              }
+
+              <div onClick={() => {
+                userData ? navigate('/addSellPost') : navigate('/login')
+              }} className='btn-container'>
+                <img src='https://www.olx.com.pk/assets/iconSellBorder_noinline.d9eebe038fbfae9f90fd61d971037e02.svg' />
+                <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><span style={{ fontSize: 37, marginBottom: 7 }}>+</span> SELL</span>
+              </div>
+            </div>
+
           </div>
         </div>
         <br />
       </nav>
-      {userInfoCartView?<span>
-        <UserInfoCart setUserInfoCartView={setUserInfoCartView} userEmail={userEmail} />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      {userInfoCartView ? <span>
+        <UserInfoCart setUserInfoCartView={setUserInfoCartView} userEmail={userData?.userEmail} />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
       </span>
-      :''}
+        : ''}
     </div>
-    
+
   );
 };
 

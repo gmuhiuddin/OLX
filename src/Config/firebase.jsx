@@ -2,7 +2,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { getFirestore, getDocs, getDoc, collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy } from "firebase/firestore";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../store/userInfoSlice";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRoL0wtWFQpsLsOR51GvN3nCgoX8IEzgY",
@@ -34,41 +36,46 @@ const getDateFromDb = async (id) => {
   }
 };
 
-  export const getUserInfo = () => {
+const SetDataInRedux = () => {
+  const dispatch = useDispatch();
 
-    const res = new Promise((resolve, reject) => {
-
-      onAuthStateChanged(auth, async (user) => {
-
-        if (user) {
+ useEffect(() => {
+  onAuthStateChanged(auth, async (user) => {
     
-          const uid = user.uid;
-          userId = uid;
-          const userDataRef = doc(db, 'userInfo', uid);
-    
-          const userData = await getDoc(userDataRef);
-    
-          const obj = {
-            user,
-            ...userData.data(),
-            userId : userData.id
-          };
+    if (user) {
+  
+      const uid = user.uid;
+      userId = uid;
+      const userDataRef = doc(db, 'userInfo', uid);
+  
+      const userData = await getDoc(userDataRef);
+      
+      const obj = {
+        user: true,
+        userData: userData.data(),
+        userId: uid
+      };
 
-          resolve(obj);
-    
-        } else {
-    
-          userId = null;
-          reject('User is not found');
+      dispatch(updateUser(obj));
+  
+    } else {
+  
+      userId = null;
 
-        }
-    
-      });
-    })
+      const obj = {
+        user: false,
+        userId: null
+      };
 
-    return res;
+      dispatch(updateUser(obj));
+    }
+  });
+ }, [])
 
-  }; 
+return<></>
+};
+
+export default SetDataInRedux;
 
 const login = async (email, password) => {
   var result;

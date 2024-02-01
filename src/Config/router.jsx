@@ -17,6 +17,7 @@ import CategoryNavbar from '../Component/Category-Navbar';
 import SmallNavbar from '../Component/SmallNavbar';
 import { useEffect, useState } from "react";
 import Loader from "../Views/Loader";
+import { useSelector } from "react-redux";
 
 const router = createBrowserRouter([
   {
@@ -58,15 +59,16 @@ function Layout() {
   const [loader, setLoader] = useState(true);
   const { pathname } = useLocation();
   const { anotherUserId } = useParams();
+  const res = useSelector(res => res.userInfo);
   const navigate = useNavigate();
-  
-  useEffect(() => {
 
-    // setUserData(contextState.userData);
-    // setUser(contextState.user);
+  useEffect(() => {
+    
+    setUserData(res?.userData);
+    setUser(res?.user);
     setLoader(false);
 
-  }, [])
+  }, [res]);
 
   useEffect(() => {
     checkUser();
@@ -82,7 +84,7 @@ function Layout() {
 
     } else if (user == false) {
 
-      if (pathname == '/addSellPost' || pathname == `/chats/${anotherUserId}`) {
+      if (pathname == '/addsellpost' || pathname == `/chats/${anotherUserId}`) {
         navigate('/');
       };
 
@@ -90,7 +92,7 @@ function Layout() {
 
   }
 
-  if (user == undefined) {
+  if (user === undefined) {
     return (
       <Loader />
     )
