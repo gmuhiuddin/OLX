@@ -2,8 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { getFirestore, getDocs, getDoc, collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy } from "firebase/firestore";
-import { useDispatch, useSelector } from "react-redux";
-import { updataUser } from "../store/userInfoSlice";
+import { useDispatch } from "react-redux";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRoL0wtWFQpsLsOR51GvN3nCgoX8IEzgY",
@@ -19,8 +18,7 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 const storage = getStorage(app);
-// const abc = useSelector(res => res.userInfo)
-// console.log(abc);
+const dispatch = useDispatch();
 let userId;
 
 const getDateFromDb = async (id) => {
@@ -37,10 +35,6 @@ const getDateFromDb = async (id) => {
   }
 };
 
-function addUserDataFB() {
-
-  const dispatch = useDispatch();
-
   onAuthStateChanged(auth, async (user) => {
 
     if (user) {
@@ -51,11 +45,12 @@ function addUserDataFB() {
 
       const userData = await getDoc(userDataRef);
 
-      dispatch(updataUser({
+      const obj = {
         user,
         ...userData.data(),
         userId : userData.id
-      }));
+      };
+
 
     } else {
 
@@ -63,14 +58,6 @@ function addUserDataFB() {
 
     }
   });
-
-  return(
-    <></>
-  )
-
-};
-
-export default addUserDataFB;
 
 const login = async (email, password) => {
   var result;

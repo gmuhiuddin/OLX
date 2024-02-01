@@ -30,8 +30,8 @@ function CartContainer() {
 
     return (
         <div className="carts-container">
-            {products?.map((element) => {
-                return <Carts cartInfo={element} />
+            {products.map((element, id) => {
+                return <Carts key={id} cartInfo={element} />
             })}
         </div>
     )
