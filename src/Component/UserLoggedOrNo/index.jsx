@@ -4,13 +4,11 @@ import SmallLoader from '../SmallLoader';
 import { useState, useEffect, useContext } from 'react';
 import {onAuthStateChanged} from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
-import nodeContext from '../../note/nodeContext'
 
 function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
   
     const [userData, setUserData] = useState();
     const [loader, setLoader] = useState(true);
-    const useContextState = useContext(nodeContext);
     const navigate = useNavigate();
 
         useEffect(() => {
@@ -23,12 +21,6 @@ function UserLoggedOrNo({setUserEmail, userInfoCartView, setUserInfoCartView}) {
                   const userDateFromDb = await getDoc(doc(db, 'userInfo', uid));
                   setUserEmail(userDateFromDb.data().userEmail)
                   setUserData(userDateFromDb.data());
-                  
-                  useContextState.setUser(user);
-                  useContextState.updateUserData({
-                    ...userDateFromDb.data(),
-                    userId:userDateFromDb.id
-                  });
                   // ...
                 } else {
                   // User is signed out

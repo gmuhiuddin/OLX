@@ -33,11 +33,11 @@ function SignUp() {
                         <br />
                         <input class="input" minlength="8" placeholder="Password" type="password" required />
                         <br />
-                        <input class="input" onChange={(e) => e.target.style.boxShadow  = '0px 0px 7px rgb(0, 0, 0)'} onClick={(e) => e.target.style.boxShadow  = '0px 0px 7px rgb(0, 0, 0)'} minlength="8" placeholder="Repeat Password" type="password" required />
+                        <input class="input" onChange={(e) => e.target.style.boxShadow  = '0px 0px 7px rgb(0, 0, 0)'} minlength="8" placeholder="Repeat Password" type="password" required />
                         <br />
                         <button type="submit" >Sign up</button>
                     </form>
-                    <p style={{ fontSize: 21 }}>You have an account <a style={{ textDecoration: 'none', color: 'rgb(128, 25, 207)', textDecoration:'underline', cursor:'pointer' }} onClick={() => navigate('/login')} >Login</a></p>
+                    <p style={{ fontSize: 21 }}>You have an account <a style={{ color: 'rgb(128, 25, 207)', textDecoration:'underline', cursor:'pointer' }} onClick={() => navigate('/login')} >Login</a></p>
                 </div>
             </div>
         </div>

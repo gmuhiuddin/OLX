@@ -15,9 +15,8 @@ import ChatsPage from '../Views/ChatsPage';
 import Navbar from '../Component/Navbar';
 import CategoryNavbar from '../Component/Category-Navbar';
 import SmallNavbar from '../Component/SmallNavbar';
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../Views/Loader";
-import nodeContext from '../note/nodeContext'
 
 const router = createBrowserRouter([
   {
@@ -59,13 +58,12 @@ function Layout() {
   const [loader, setLoader] = useState(true);
   const { pathname } = useLocation();
   const { anotherUserId } = useParams();
-  const contextState = useContext(nodeContext);
   const navigate = useNavigate();
   
   useEffect(() => {
 
-    setUserData(contextState.userData);
-    setUser(contextState.user);
+    // setUserData(contextState.userData);
+    // setUser(contextState.user);
     setLoader(false);
 
   }, [])

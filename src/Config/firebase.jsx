@@ -1,9 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { useContext, useState } from "react";
-import nodeContext from '../note/nodeContext';
-import { getFirestore, getDocs, getDoc,  collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy } from "firebase/firestore";
+import { getFirestore, getDocs, getDoc, collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy } from "firebase/firestore";
+import { useDispatch, useSelector } from "react-redux";
+import { updataUser } from "../store/userInfoSlice";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRoL0wtWFQpsLsOR51GvN3nCgoX8IEzgY",
@@ -19,6 +19,8 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 const storage = getStorage(app);
+// const abc = useSelector(res => res.userInfo)
+// console.log(abc);
 let userId;
 
 const getDateFromDb = async (id) => {
@@ -26,7 +28,7 @@ const getDateFromDb = async (id) => {
     const result = await getDoc(doc(db, 'products', id))
     return {
       ...result.data(),
-      id:result.id
+      id: result.id
     };
   }
   else {
@@ -35,19 +37,40 @@ const getDateFromDb = async (id) => {
   }
 };
 
-onAuthStateChanged(auth, async (user) => {
-  
-  if (user) {
+function addUserDataFB() {
 
-    const uid = user.uid;
-    userId = uid;
+  const dispatch = useDispatch();
 
-  } else {
+  onAuthStateChanged(auth, async (user) => {
 
-    userId = null;
+    if (user) {
 
-  }
-});
+      const uid = user.uid;
+      userId = uid;
+      const userDataRef = doc(db, 'userInfo', uid);
+
+      const userData = await getDoc(userDataRef);
+
+      dispatch(updataUser({
+        user,
+        ...userData.data(),
+        userId : userData.id
+      }));
+
+    } else {
+
+      userId = null;
+
+    }
+  });
+
+  return(
+    <></>
+  )
+
+};
+
+export default addUserDataFB;
 
 const login = async (email, password) => {
   var result;
@@ -115,7 +138,7 @@ const addDateForAdds = async (addInfo) => {
   const images = ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3p3U7z5Gamd4oORfcHkwgLvpE-vCFM6pxpQ&usqp=CAU', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRUywYA3hf5Jaz8hzHeCzUWAAdPQ3W63dAzw&usqp=CAU'];
 
   const userData = await getDoc(doc(db, 'userInfo', userId));
-  
+
   const obj = {
     ...addInfo,
     discountPercentage: discountPercentage,
@@ -130,10 +153,10 @@ const addDateForAdds = async (addInfo) => {
 
 const addUserMsg = async (msgInfo) => {
 
-await addDoc(collection(db, 'usersChats'), {
-  ...msgInfo,
-  time: serverTimestamp()
-});
+  await addDoc(collection(db, 'usersChats'), {
+    ...msgInfo,
+    time: serverTimestamp()
+  });
 
 };
 
@@ -141,19 +164,19 @@ const getUsersMsg = async (chatId) => {
 
   const msgRef = query(collection(db, 'usersChats'), orderBy("time"), where("chatId", "==", chatId));
 
- const abc = new Promise((resolve, reject) => {
-  onSnapshot(msgRef, (data) => {
+  const abc = new Promise((resolve, reject) => {
+    onSnapshot(msgRef, (data) => {
 
-    if(data.empty){
-      reject('on Chats')
-    }else{
-      resolve(data.docs)
-    }
+      if (data.empty) {
+        reject('on Chats')
+      } else {
+        resolve(data.docs)
+      }
+    })
+
   })
 
- })
-  
- return abc;
+  return abc;
 };
 
 export { getDateFromDb, login, signUp, addDateForAdds, getUsersMsg, addImageInDatabase, logout, addUserMsg };

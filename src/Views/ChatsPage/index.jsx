@@ -4,14 +4,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { addUserMsg, getUsersMsg } from '../../Config/firebase';
 import SmallLoader from '../../Component/SmallLoader';
-import nodeContext from '../../note/nodeContext';
 
 const ChatsPage = () => {
   const { productId } = useParams();
   const [userData, setUserData] = useState();
   const [chats, setChats] = useState();
   const containerRef = useRef(null);
-  const contextState = useContext(nodeContext);
   const navigate = useNavigate();
 
   const scrollToBottom = () => {
@@ -21,7 +19,7 @@ const ChatsPage = () => {
   };
 
   useEffect(() => {
-    setUserData(contextState.userData);
+    // setUserData(contextState.userData);
   }, []);
 
   useEffect(() => {
