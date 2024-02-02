@@ -1,5 +1,6 @@
 import './App.css';
 import Router from './Config/router';
+import SetDataInRedux from './Config/firebase'
 
 function App() {
 
