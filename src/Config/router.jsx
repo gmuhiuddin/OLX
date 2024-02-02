@@ -18,7 +18,6 @@ import SmallNavbar from '../Component/SmallNavbar';
 import { useEffect, useState } from "react";
 import Loader from "../Views/Loader";
 import { useSelector } from "react-redux";
-import SetDataInRedux from './firebase'
 
 const router = createBrowserRouter([
   {
@@ -69,7 +68,7 @@ function Layout() {
     setUser(res?.user);
     setLoader(false);
 
-  }, [res]);
+  }, []);
 
   useEffect(() => {
     checkUser();

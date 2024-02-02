@@ -12,12 +12,12 @@ const Navbar = () => {
   const [userInfoCartView, setUserInfoCartView] = useState(false);
   const [userData, setUserData] = useState();
   const [loader, setLoader] = useState(true);
-  const res = useSelector(res => res.userInfo);
+  // const res = useSelector(res => res.userInfo);
   const navigate = useNavigate();
   
-  useEffect(() => {
-    setUserData(res?.userData);
-  }, [res]);
+  // useEffect(() => {
+  //   setUserData(res?.userData);
+  // }, []);
 
   if(userData){
     setLoader(false)

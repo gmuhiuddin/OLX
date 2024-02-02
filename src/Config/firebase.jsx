@@ -36,46 +36,44 @@ const getDateFromDb = async (id) => {
   }
 };
 
-const SetDataInRedux = () => {
-  const dispatch = useDispatch();
+const getUserDataFromDb = async () => {
 
-  useEffect(() => {
+  const res = new Promise((resolve, reject) => {
     onAuthStateChanged(auth, async (user) => {
 
       if (user) {
-
+  
         const uid = user.uid;
         userId = uid;
         const userDataRef = doc(db, 'userInfo', uid);
-
+  
         const userData = await getDoc(userDataRef);
-
+  
         const obj = {
           user: true,
           userData: userData.data(),
           userId: uid
         };
-
-        dispatch(updateUser(obj));
-
+  
+        resolve(obj);
+  
       } else {
-
+  
         userId = null;
-
+  
         const obj = {
           user: false,
           userId: null
         };
-
-        dispatch(updateUser(obj));
+  
+        reject(obj);
+  
       }
     });
-  }, [])
+  });
 
-  return <></>
+  return res;
 };
-
-export default SetDataInRedux;
 
 const login = async (email, password) => {
   var result;
@@ -184,4 +182,4 @@ const getUsersMsg = async (chatId) => {
   return abc;
 };
 
-export { getDateFromDb, login, signUp, addDateForAdds, getUsersMsg, addImageInDatabase, logout, addUserMsg };
+export { getDateFromDb, login, signUp, addDateForAdds, getUsersMsg, addImageInDatabase, logout, addUserMsg, getUserDataFromDb };

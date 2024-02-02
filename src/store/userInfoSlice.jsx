@@ -7,6 +7,7 @@ const counterSlice = createSlice({
   },
   reducers: {
     updateUser: (state, data) => {
+      console.log(data.payload);
       state.userInfo = data.payload
     }
   }
