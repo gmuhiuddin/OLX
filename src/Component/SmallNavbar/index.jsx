@@ -1,4 +1,4 @@
-import './style.css'
+import './style.css';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -25,6 +25,6 @@ function SmallNavbar({userData, loader}) {
             </div>
         </div>
     )
-}
+};
 
 export default SmallNavbar;

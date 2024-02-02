@@ -17,8 +17,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
-export const auth = getAuth(app);
+const db = getFirestore(app);
+const auth = getAuth(app);
 const storage = getStorage(app);
 let userId;
 
@@ -39,40 +39,40 @@ const getDateFromDb = async (id) => {
 const SetDataInRedux = () => {
   const dispatch = useDispatch();
 
- useEffect(() => {
-  onAuthStateChanged(auth, async (user) => {
-    
-    if (user) {
-  
-      const uid = user.uid;
-      userId = uid;
-      const userDataRef = doc(db, 'userInfo', uid);
-  
-      const userData = await getDoc(userDataRef);
-      
-      const obj = {
-        user: true,
-        userData: userData.data(),
-        userId: uid
-      };
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
 
-      dispatch(updateUser(obj));
-  
-    } else {
-  
-      userId = null;
+      if (user) {
 
-      const obj = {
-        user: false,
-        userId: null
-      };
+        const uid = user.uid;
+        userId = uid;
+        const userDataRef = doc(db, 'userInfo', uid);
 
-      dispatch(updateUser(obj));
-    }
-  });
- }, [])
+        const userData = await getDoc(userDataRef);
 
-return<></>
+        const obj = {
+          user: true,
+          userData: userData.data(),
+          userId: uid
+        };
+
+        dispatch(updateUser(obj));
+
+      } else {
+
+        userId = null;
+
+        const obj = {
+          user: false,
+          userId: null
+        };
+
+        dispatch(updateUser(obj));
+      }
+    });
+  }, [])
+
+  return <></>
 };
 
 export default SetDataInRedux;
