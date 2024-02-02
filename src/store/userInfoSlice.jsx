@@ -10,7 +10,7 @@ const counterSlice = createSlice({
       state.userInfo = data.payload
     }
   }
-})
+});
 
 export const { updateUser } = counterSlice.actions;
 

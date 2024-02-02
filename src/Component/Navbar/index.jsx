@@ -16,9 +16,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   
   useEffect(() => {
-    // setUserData(res?.userData);
-    alert()
-  }, []);
+    setUserData(res?.userData);
+  }, [res]);
 
   if(userData){
     setLoader(false)
