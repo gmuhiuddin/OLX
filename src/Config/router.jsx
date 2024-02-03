@@ -68,8 +68,8 @@ function Layout() {
     setUser(res?.user);
     setLoader(false);
 
-  }, []);
-
+  }, [res]);
+  
   useEffect(() => {
     checkUser();
   }, [pathname, user]);
@@ -96,7 +96,7 @@ function Layout() {
     return (
       <Loader />
     )
-  }
+  };
 
   return (
     <div>

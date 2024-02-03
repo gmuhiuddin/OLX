@@ -14,7 +14,6 @@ useEffect(() => {
 
 const addDataInRedux = async () => {
   const res = await getUserDataFromDb();
-console.log();
   dispatch(updateUser(res));
 };
 
