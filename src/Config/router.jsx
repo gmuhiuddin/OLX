@@ -90,7 +90,7 @@ function Layout() {
 
     }
 
-  }
+  };
 
   if (user === undefined) {
     return (

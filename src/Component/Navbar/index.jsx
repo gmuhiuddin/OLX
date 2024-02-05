@@ -16,10 +16,14 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUserData(res?.userData)
+    setUserData(res?.userData);
+    
     if (res?.userData) {
-      setLoader(false)
-    }
+      setLoader(false);
+    };
+    if(res?.userData == false){
+      setLoader(false);
+    };
   }, [res])
 
   return (

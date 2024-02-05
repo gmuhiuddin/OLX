@@ -8,7 +8,7 @@ function Login() {
     async function loginForm(e) {
         e.preventDefault();
         const result = await login(e.target[0].value, e.target[1].value);
-        result == 'user is succesfully login' ? navigate('/') : alert(result);
+        result == 'user is succesfully login' ? window.location.pathname = '/' : alert(result);
         e.target[1].value = '';
     }
 

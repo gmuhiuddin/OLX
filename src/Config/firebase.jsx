@@ -63,6 +63,7 @@ const getUserDataFromDb = async () => {
   
         const obj = {
           user: false,
+          userData: false,
           userId: null
         };
   

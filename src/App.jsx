@@ -8,14 +8,19 @@ import { useDispatch, useSelector } from 'react-redux';
 function App() {
   const dispatch = useDispatch();
 
-useEffect(() => {
-  addDataInRedux();
-}, []);
+  useEffect(() => {
+    addDataInRedux();
+  }, []);
 
-const addDataInRedux = async () => {
-  const res = await getUserDataFromDb();
-  dispatch(updateUser(res));
-};
+  const addDataInRedux = async () => {
+    const res = getUserDataFromDb();
+    res.then(data => {
+      dispatch(updateUser(data));
+    })
+    .catch(err => {
+      dispatch(updateUser(err));
+    })
+  };
 
   return (
     <div className="App">
