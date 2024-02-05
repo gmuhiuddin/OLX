@@ -119,6 +119,6 @@ const AddSellPost = () => {
             <br />
         </div>
     )
-}
+};
 
 export default AddSellPost;
