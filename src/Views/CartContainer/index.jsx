@@ -33,6 +33,7 @@ function CartContainer() {
             <CategoryCartsContainer products={products} category={'Mobiles'} />
             <CategoryCartsContainer products={products} category={'laptops'} />
             <CategoryCartsContainer products={products} category={'Property For Rent'} />
+            <CategoryCartsContainer products={products} category={'Property For Sale'} />
             <CategoryCartsContainer products={products} category={'Vehicles'} />
             <CategoryCartsContainer products={products} category={'fragrances'} />
             <CategoryCartsContainer products={products} category={'groceries'} />
