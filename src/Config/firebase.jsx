@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { getFirestore, getDocs, getDoc, collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy } from "firebase/firestore";
+import { getFirestore, getDocs, getDoc, collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../store/userInfoSlice";
@@ -42,33 +42,33 @@ const getUserDataFromDb = async () => {
     onAuthStateChanged(auth, async (user) => {
 
       if (user) {
-  
+
         const uid = user.uid;
         userId = uid;
         const userDataRef = doc(db, 'userInfo', uid);
-  
+
         const userData = await getDoc(userDataRef);
-  
+
         const obj = {
           user: true,
           userData: userData.data(),
           userId: uid
         };
-  
+
         resolve(obj);
-  
+
       } else {
-  
+
         userId = null;
-  
+
         const obj = {
           user: false,
           userData: false,
           userId: null
         };
-  
+
         reject(obj);
-  
+
       }
     });
   });
@@ -128,7 +128,10 @@ const logout = async () => {
 };
 
 const addImageInDatabase = async (image) => {
-  let storageRef = ref(storage, `usersImages/${userId}`);
+  const res = await getDoc(doc(db, 'productId', 'XWoz6GX60rzwW6ZZSfOr'));
+  const productId = res.data().productId;
+
+  let storageRef = ref(storage, `productImage/${productId}`);
 
   await uploadBytes(storageRef, image);
   const url = await getDownloadURL(storageRef);
@@ -136,6 +139,9 @@ const addImageInDatabase = async (image) => {
 };
 
 const addDateForAdds = async (addInfo) => {
+
+  const res = await getDoc(doc(db, 'productId', 'XWoz6GX60rzwW6ZZSfOr'));
+  const productId = res.data().productId;
 
   const discountPercentage = Math.round(Math.random() * 35);
   const rating = Math.floor(Math.random() * 5);
@@ -149,10 +155,15 @@ const addDateForAdds = async (addInfo) => {
     rating: rating,
     images: images,
     ...userData.data(),
-    userId: userData.id
+    userId: userData.id,
+    productId
   }
 
   await addDoc(collection(db, 'products'), obj);
+
+  await updateDoc(doc(db, 'productId', 'XWoz6GX60rzwW6ZZSfOr'), {
+    productId: productId + 1
+  })
 };
 
 const addUserMsg = async (msgInfo) => {

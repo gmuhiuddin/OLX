@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const AddSellPost = () => {
     const [imageLink, setImageLink] = useState();
     const navigate = useNavigate();
-
+    
     const sellAddFucn = async (e) => {
         e.preventDefault();
         
@@ -27,10 +27,10 @@ const AddSellPost = () => {
                 e.target[1].value = '';
                 e.target[2].value = '';
                 setImageLink('');
-                navigate('/')
+                navigate('/');
 
             } catch (e) {
-                alert(e.message)
+                console.log(e.message)
             }
         };
 
