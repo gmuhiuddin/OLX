@@ -18,6 +18,7 @@ import SmallNavbar from '../Component/SmallNavbar';
 import { useEffect, useState } from "react";
 import Loader from "../Views/Loader";
 import { useSelector } from "react-redux";
+import PasswordResetPage from '../Views/ResetPassPage';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/addSellPost",
         element: < AddSellPost />,
+      },
+      {
+        path: "/passresetpage",
+        element: <PasswordResetPage />,
       }
     ]
   }
@@ -78,7 +83,7 @@ function Layout() {
 
     if (user) {
 
-      if (pathname == '/login' || pathname == '/signup') {
+      if (pathname == '/login' || pathname == '/signup' || pathname == '/passresetpage') {
         navigate('/');
       };
 

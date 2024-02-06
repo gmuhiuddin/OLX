@@ -9,7 +9,7 @@
     box-shadow: 1px 1px 7px black;
     padding: 19px 79px;
     padding: 19px 39px;
-    width: 21%;
+    width: 27%;
 }
 
 .login-container span {
@@ -20,7 +20,7 @@
 .login-container input {
     display: block;
     margin: 0 auto;
-    width: 93%;
+    width: 79%;
     height: 4.5vh;
     border-radius: 9px;
     padding: 1px 9px;
@@ -32,13 +32,22 @@
 .login-container button {
     display: block;
     margin: 11px auto;
-    width: 37%;
-    height: 5.5vh;
+    padding: 11px 25px;
     border-radius: 5px;
     color: white;
     background-color: rgb(128, 25, 207);
     outline: none;
     border: none;
     cursor: pointer;
-    font-size: 21px;
+    font-size: 2.9vh;
+}
+
+.forgot-pass-txt{
+    display: block;
+    text-align: left;
+    font-size: 3vh;
+    cursor: pointer;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
 }

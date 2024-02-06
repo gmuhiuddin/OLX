@@ -3,14 +3,14 @@ import { login } from '../../Config/firebase'
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     async function loginForm(e) {
         e.preventDefault();
         const result = await login(e.target[0].value, e.target[1].value);
         result == 'user is succesfully login' ? window.location.pathname = '/' : alert(result);
         e.target[1].value = '';
-    }
+    };
 
     return (
         <div>
@@ -30,11 +30,12 @@ function Login() {
                         <br />
                         <button type="submit">Login</button>
                     </form>
+                    <a href='/passresetpage' className='forgot-pass-txt'>Forgot password?</a>
                     <p style={{ fontSize: 21 }}>You don`t have an account <a style={{ textDecoration: 'underline', color: 'rgb(128, 25, 207)', cursor:'pointer' }} onClick={() => navigate('/signup')}>Sign Up</a></p>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Login;
