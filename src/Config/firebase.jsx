@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { getFirestore, getDocs, getDoc, collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy, updateDoc } from "firebase/firestore";
+import { getFirestore, getDocs, setDoc, getDoc, collection, addDoc, query, doc, where, onSnapshot, serverTimestamp, orderBy, updateDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRoL0wtWFQpsLsOR51GvN3nCgoX8IEzgY",

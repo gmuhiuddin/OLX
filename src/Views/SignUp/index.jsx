@@ -11,7 +11,7 @@ function SignUp() {
         e.preventDefault();
         if (e.target[3].value == e.target[4].value) {
             const result = await signUp(e.target[0].value, e.target[1].value, e.target[2].value, e.target[3].value);
-            result == 'user is succesfully added' ? navigate('/') : alert(result);
+            result == 'user is succesfully added' ? window.location.pathname = '/' : alert(result);
         } else {
             e.target[4].style.boxShadow = '0px 0px 7px rgb(255, 0, 0)';
             e.target[4].value = '';
