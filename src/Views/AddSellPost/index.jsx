@@ -31,7 +31,7 @@ const AddSellPost = () => {
 
             } catch (e) {
                 console.log(e.message)
-            }
+            };
         };
 
     };
@@ -118,7 +118,7 @@ const AddSellPost = () => {
             </div>
             <br />
         </div>
-    )
+    );
 };
 
 export default AddSellPost;

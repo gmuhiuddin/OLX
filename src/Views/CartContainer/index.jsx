@@ -1,8 +1,8 @@
-import Carts from '../../Component/Carts/index';
 import { useState, useEffect } from 'react';
 import {getDateFromDb} from '../../Config/firebase';
 import './style.css';
 import Loader from '../Loader';
+import CategoryCartsContainer from '../../Component/Category-carts-container';
 
 function CartContainer() {
     const [products, setProducts] = useState([]);
@@ -30,9 +30,15 @@ function CartContainer() {
 
     return (
         <div className="carts-container">
-            {products.map((element, id) => {
-                return <Carts key={id} cartInfo={element} />
-            })}
+            <CategoryCartsContainer products={products} category={'Mobiles'} />
+            <CategoryCartsContainer products={products} category={'laptops'} />
+            <CategoryCartsContainer products={products} category={'Property For Rent'} />
+            <CategoryCartsContainer products={products} category={'Vehicles'} />
+            <CategoryCartsContainer products={products} category={'fragrances'} />
+            <CategoryCartsContainer products={products} category={'groceries'} />
+            <CategoryCartsContainer products={products} category={'home-decoration'} />
+            <CategoryCartsContainer products={products} category={'skincare'} />
+            <CategoryCartsContainer products={products} category={'smartphones'} />
         </div>
     )
 };
