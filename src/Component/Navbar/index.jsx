@@ -29,7 +29,7 @@ const Navbar = () => {
   return (
     <div>
       <nav className="navbar">
-        <img className='logo' alt='logo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1AqNs6Rez3QHmfXdLLVj8mVpPOfvPqs3Ak0wo2_0Nm4BZk-yc' />
+        <img className='logo' onClick={() => window.location.pathname = '/'} alt='logo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1AqNs6Rez3QHmfXdLLVj8mVpPOfvPqs3Ak0wo2_0Nm4BZk-yc' />
         <div>
           <div style={{ display: 'flex', alignItems: 'center', width: '81vw' }}>
             <div className='select-container'>
