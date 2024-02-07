@@ -159,7 +159,6 @@ const addDateForAdds = async (addInfo) => {
 
   const discountPercentage = Math.round(Math.random() * 35);
   const rating = Math.floor(Math.random() * 5);
-  const images = ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3p3U7z5Gamd4oORfcHkwgLvpE-vCFM6pxpQ&usqp=CAU', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRUywYA3hf5Jaz8hzHeCzUWAAdPQ3W63dAzw&usqp=CAU'];
 
   const userData = await getDoc(doc(db, 'userInfo', userId));
 
@@ -167,17 +166,16 @@ const addDateForAdds = async (addInfo) => {
     ...addInfo,
     discountPercentage: discountPercentage,
     rating: rating,
-    images: images,
     ...userData.data(),
     userId: userData.id,
     productId
-  }
-
+  };
+  
   await addDoc(collection(db, 'products'), obj);
 
   await updateDoc(doc(db, 'productId', 'XWoz6GX60rzwW6ZZSfOr'), {
     productId: productId + 1
-  })
+  });
 };
 
 const addUserMsg = async (msgInfo) => {

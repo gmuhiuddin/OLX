@@ -55,7 +55,7 @@
     cursor: pointer;
 }
 
-#thumbnail-image, #first-image, #second-image {
+#thumbnail-image, #first-image, #second-image, #third-image, #fourth-image {
     display: none;
 }
 
@@ -74,7 +74,7 @@
     text-align: center;
 }
 
-.thumbnail-image-label, .first-image-label, .second-image-label {
+.thumbnail-image-label, .first-image-label, .second-image-label, .third-image-label, .fourth-image-label {
     font-size: 25px !important;
     background-color: rgb(255, 238, 0);
     padding: 11px 13px;
