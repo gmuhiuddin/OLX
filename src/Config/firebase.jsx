@@ -124,9 +124,27 @@ const logout = async () => {
   await signOut(auth);
 };
 
-const addImageInDatabase = async (image) => {
+const getProductId = async () => {
+
   const res = await getDoc(doc(db, 'productId', 'XWoz6GX60rzwW6ZZSfOr'));
   const productId = res.data().productId;
+
+  return productId;
+};
+
+const addMultiImagesInDatabase = async (image, imageNum) => {
+
+  const productId = await getProductId();
+
+  let storageRef = ref(storage, `productImages/${imageNum}/${productId}`);
+
+  await uploadBytes(storageRef, image);
+  const url = await getDownloadURL(storageRef);
+  return url;
+};
+
+const addImageInDatabase = async (image) => {
+  const productId = await getProductId();
 
   let storageRef = ref(storage, `productImage/${productId}`);
 
@@ -137,8 +155,7 @@ const addImageInDatabase = async (image) => {
 
 const addDateForAdds = async (addInfo) => {
 
-  const res = await getDoc(doc(db, 'productId', 'XWoz6GX60rzwW6ZZSfOr'));
-  const productId = res.data().productId;
+  const productId = await getProductId();
 
   const discountPercentage = Math.round(Math.random() * 35);
   const rating = Math.floor(Math.random() * 5);
@@ -193,8 +210,8 @@ const getUsersMsg = async (chatId) => {
 
 const resetPass = async (email) => {
   const res = sendPasswordResetEmail(auth, email);
-  
+
   return res;
 };
 
-export { getDateFromDb, login, signUp, addDateForAdds, getUsersMsg, addImageInDatabase, logout, addUserMsg, getUserDataFromDb, resetPass };
+export { getDateFromDb, login, signUp, addDateForAdds, getUsersMsg, addImageInDatabase, logout, addUserMsg, getUserDataFromDb, resetPass, addMultiImagesInDatabase };

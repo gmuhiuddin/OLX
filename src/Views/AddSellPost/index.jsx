@@ -1,15 +1,16 @@
 import './style.css';
-import { addDateForAdds, addImageInDatabase } from '../../Config/firebase';
+import { addDateForAdds, addImageInDatabase, addMultiImagesInDatabase } from '../../Config/firebase';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AddSellPost = () => {
     const [imageLink, setImageLink] = useState();
+    const [imagesLinks, setImagesLinks] = useState([]);
     const navigate = useNavigate();
-    
+
     const sellAddFucn = async (e) => {
         e.preventDefault();
-        
+
         if (!e.target[4].files[0]) {
             alert('Please enter thumbnail image');
         } else {
@@ -35,6 +36,7 @@ const AddSellPost = () => {
         };
 
     };
+    console.log(imagesLinks);
 
     return (
         <div className="sell-container">
@@ -90,22 +92,46 @@ const AddSellPost = () => {
                     </div>
                     <br />
 
-                        <h1 style={{textAlign:'center'}}>Add Multiple Images</h1>
+                    <h1 style={{ textAlign: 'center' }}>Add Multiple Images</h1>
                     <div className='add-multiple-images-conatiner'>
 
 
                         <div className='image-container'>
-                            <img src={imageLink} alt='Thumbnail image' />
+                            <img src={imagesLinks[0]} alt='First image' />
                             <br />
                             <br />
-                            <label for="thumbnail-image" style={{ textAlign: 'left' }}>Add first image<span className='important-txt'>*</span>:</label>
-                            <label className='thumbnail-image-label' for="thumbnail-image">Click here</label>
+                            <label for="first-image" style={{ textAlign: 'left' }}>Add first image<span className='important-txt'>*</span>:</label>
+                            <label className='first-image-label' for="first-image">Click here</label>
                             <input
-                                // onChange={async (e) => {
-                                //     const imageUrl = await addImageInDatabase(e.target.files[0]);
-                                //     setImageLink(imageUrl)
-                                // }}
-                                id='thumbnail-image' type='file' />
+                                onChange={async (e) => {
+                                    const imageUrl = await addMultiImagesInDatabase(e.target.files[0], 'first');
+
+                                    const imagess = [...imagesLinks];
+                                    imagess[0] = imageUrl;
+                                    setImagesLinks(imagess);
+                                }}
+                                id='first-image' type='file' />
+                        </div>
+
+
+
+                        <div className='image-container'>
+                            <img src={imagesLinks[1]} alt='Second image' />
+                            <br />
+                            <br />
+                            <label for="second-image" style={{ textAlign: 'left' }}>Add Second image<span className='important-txt'>*</span>:</label>
+                            <label className='second-image-label' for="second-image">Click here</label>
+                            <input
+                                onChange={async (e) => {
+                                    const imageUrl = await addMultiImagesInDatabase(e.target.files[0], 'second');
+
+                                    const imagess = [...imagesLinks];
+
+                                    imagess[1] = imageUrl;
+
+                                    setImagesLinks(imagess);
+                                }}
+                                id='second-image' type='file' />
                         </div>
 
                     </div>

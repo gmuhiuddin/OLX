@@ -55,7 +55,7 @@
     cursor: pointer;
 }
 
-#thumbnail-image {
+#thumbnail-image, #first-image, #second-image {
     display: none;
 }
 
@@ -74,7 +74,7 @@
     text-align: center;
 }
 
-.thumbnail-image-label {
+.thumbnail-image-label, .first-image-label, .second-image-label {
     font-size: 25px !important;
     background-color: rgb(255, 238, 0);
     padding: 11px 13px;
@@ -85,7 +85,7 @@
 .image-container img {
     margin: 9px auto;
     display: block;
-    max-height: 35vh;
+    max-width: 25vw;
 }
 
 .submit-btn{
