@@ -108,7 +108,7 @@ function Layout() {
       <SmallNavbar loader={loader} userData={userData} />
       <Outlet />
     </div>
-  )
+  );
 };
 
 function MainPage() {
