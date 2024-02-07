@@ -31,6 +31,7 @@ function CartContainer() {
     return (
         <div className="carts-container">
             <CategoryCartsContainer products={products} category={'Mobiles'} />
+            <CategoryCartsContainer products={products} category={'Bikes'} />
             <CategoryCartsContainer products={products} category={'laptops'} />
             <CategoryCartsContainer products={products} category={'Property For Rent'} />
             <CategoryCartsContainer products={products} category={'Property For Sale'} />

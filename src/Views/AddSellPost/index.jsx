@@ -10,17 +10,21 @@ const AddSellPost = () => {
 
     const sellAddFucn = async (e) => {
         e.preventDefault();
-        
+
         if (!e.target[4].files[0] || !e.target[5].files[0] || !e.target[6].files[0] || !e.target[7].files[0] || !e.target[8].files[0]) {
             alert('Please enter thumbnail and multiple images');
         } else {
+
+            const date = new Date();
+
             const addInfo = {
                 category: e.target[0].value,
                 title: e.target[1].value,
                 description: e.target[2].value,
                 price: e.target[3].value,
                 thumbnail: imageLink,
-                images:imagesLinks
+                images: imagesLinks,
+                date: date.getTime()
             };
 
             try {
