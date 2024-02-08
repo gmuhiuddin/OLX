@@ -1,6 +1,5 @@
 import './App.css';
 import Router from './Config/router';
-import { useSelector } from 'react-redux';
 
 function App() {
 
