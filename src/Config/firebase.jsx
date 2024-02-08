@@ -33,46 +33,6 @@ const getDateFromDb = async (id) => {
   }
 };
 
-const getUserDataFromDb = async () => {
-
-  const res = new Promise((resolve, reject) => {
-    onAuthStateChanged(auth, async (user) => {
-
-      if (user) {
-
-        const uid = user.uid;
-        userId = uid;
-        const userDataRef = doc(db, 'userInfo', uid);
-
-        const userData = await getDoc(userDataRef);
-
-        const obj = {
-          user: true,
-          userData: userData.data(),
-          userId: uid
-        };
-
-        resolve(obj);
-
-      } else {
-
-        userId = null;
-
-        const obj = {
-          user: false,
-          userData: false,
-          userId: null
-        };
-
-        reject(obj);
-
-      }
-    });
-  });
-
-  return res;
-};
-
 const login = async (email, password) => {
   var result;
 
@@ -233,4 +193,4 @@ const resetPass = async (email) => {
   return res;
 };
 
-export { getDateFromDb, login, signUp, addDateForAdds, getUsersMsg, addImageInDatabase, logout, addUserMsg, getUserDataFromDb, resetPass, addMultiImagesInDatabase };
+export { getDateFromDb, login, signUp, addDateForAdds, getUsersMsg, addImageInDatabase, logout, addUserMsg, resetPass, addMultiImagesInDatabase };
