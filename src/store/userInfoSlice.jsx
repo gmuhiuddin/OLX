@@ -3,15 +3,26 @@ import { createSlice } from '@reduxjs/toolkit';
 const counterSlice = createSlice({
   name: 'UserInfo',
   initialState: {
-    userInfo: undefined
+    userInfo: {
+      user: false,
+      userData: false,
+      userId: null
+    }
   },
   reducers: {
-    updateUser: (state, data) => {
+    setUser: (state, data) => {
       state.userInfo = data.payload
+    },
+    removeUser: state => {
+      state.userInfo = {
+          user: false,
+          userData: false,
+          userId: null
+        }
     }
   }
 });
 
-export const { updateUser } = counterSlice.actions;
+export const { setUser, removeUser } = counterSlice.actions;
 
 export default counterSlice;

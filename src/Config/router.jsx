@@ -64,7 +64,7 @@ function Layout() {
   const [loader, setLoader] = useState(true);
   const { pathname } = useLocation();
   const { anotherUserId } = useParams();
-  const res = useSelector(res => res.userInfo);
+  const res = useSelector(res => res.userSlice.userInfo);
   const navigate = useNavigate();
 
   useEffect(() => {

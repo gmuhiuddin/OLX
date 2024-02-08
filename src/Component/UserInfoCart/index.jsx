@@ -1,11 +1,16 @@
 import './style.css';
 import { logout } from '../../Config/firebase';
+import { removeUser } from '../../store/userInfoSlice';
+import { useDispatch } from 'react-redux';
 
 function UserInfoCart({ userEmail, setUserInfoCartView }) {
+
+    const dispatch = useDispatch();
 
     async function logoutFunc() {
         try {
             await logout();
+            dispatch(removeUser());
             setUserInfoCartView(false);
         } catch (e) {
             alert(e.message);

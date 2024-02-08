@@ -20,7 +20,7 @@ function SeletedItem() {
     const discountedPrice = product?.price / 100 * dicountOutOf100Per;
     const todayDate = new Date();
     const daysAgo = todayDate.getTime() / 1000 / 60 / 60 / 24 - product?.date / 1000 / 60 / 60 / 24;
-console.log(product);
+    
     useEffect(() => {
         getProducts();
     }, []);

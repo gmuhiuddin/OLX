@@ -1,14 +1,20 @@
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import './style.css'
 import { login } from '../../Config/firebase'
-import { useNavigate } from 'react-router-dom';
+import { setUser } from '../../store/userInfoSlice';
 
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     async function loginForm(e) {
         e.preventDefault();
         const result = await login(e.target[0].value, e.target[1].value);
-        result == 'user is succesfully login' ? window.location.pathname = '/' : alert(result);
+
+        dispatch(setUser(result));
+
+        typeof result == 'object' ? window.location.pathname = '/' : alert(result);
         e.target[1].value = '';
     };
 

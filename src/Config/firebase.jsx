@@ -77,11 +77,21 @@ const login = async (email, password) => {
   var result;
 
   await signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       const user = userCredential.user;
-      userId = user.id
+      userId = user.uid
+      
+      const userDataRef = doc(db, 'userInfo', user.uid);
 
-      result = 'user is succesfully login';
+      const userData = await getDoc(userDataRef);
+
+      const obj = {
+        user: true,
+        userData: userData.data(),
+        userId: user.uid
+      };
+
+      result = obj;
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -97,7 +107,7 @@ const signUp = async (name, fatherName, email, password) => {
 
   await createUserWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
-      // Signed in 
+      
       const user = userCredential.user;
       userId = user.uid;
 
@@ -106,9 +116,20 @@ const signUp = async (name, fatherName, email, password) => {
         lastname: fatherName,
         userImg: '',
         userEmail: user.email
-      })
+      });
 
-      result = 'user is succesfully added';
+      const userDataRef = doc(db, 'userInfo', user.uid);
+
+      const userData = await getDoc(userDataRef);
+
+      const obj = {
+        user: true,
+        userData: userData.data(),
+        userId: user.uid
+      };
+
+      result = obj;
+      
       // ...
     })
     .catch((error) => {
