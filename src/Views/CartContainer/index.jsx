@@ -6,7 +6,7 @@ import CategoryCartsContainer from '../../Component/Category-carts-container';
 
 function CartContainer() {
     const [products, setProducts] = useState([]);
-
+    
     useEffect(() => {
         getProducts()
     }, []);

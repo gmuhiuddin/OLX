@@ -17,7 +17,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
-let userId;
 
 const getDateFromDb = async (id) => {
   if (id) {
@@ -41,7 +40,7 @@ const login = async (email, password) => {
     .then(async (userCredential) => {
       const user = userCredential.user;
       userId = user.uid
-      
+
       const userDataRef = doc(db, 'userInfo', user.uid);
 
       const userData = await getDoc(userDataRef);
@@ -68,7 +67,7 @@ const signUp = async (name, fatherName, email, password) => {
 
   await createUserWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
-      
+
       const user = userCredential.user;
       userId = user.uid;
 
@@ -90,7 +89,7 @@ const signUp = async (name, fatherName, email, password) => {
       };
 
       result = obj;
-      
+
       // ...
     })
     .catch((error) => {
@@ -152,7 +151,7 @@ const addDateForAdds = async (addInfo) => {
     userId: userData.id,
     productId
   };
-  
+
   await addDoc(collection(db, 'products'), obj);
 
   await updateDoc(doc(db, 'productId', 'XWoz6GX60rzwW6ZZSfOr'), {
@@ -194,4 +193,49 @@ const resetPass = async (email) => {
   return res;
 };
 
-export { getDateFromDb, login, signUp, addDateForAdds, getUsersMsg, addImageInDatabase, logout, addUserMsg, resetPass, addMultiImagesInDatabase };
+const addToCart = async (id, userId) => {
+  const res = await getDoc(doc(db, 'userInfo', userId));
+  let idIsAlreadyExist = false;
+
+  const cartsIds = [...res.data().cartsIdForBasket];
+
+  for (let i = 0; i < cartsIds.length; i++) {
+    if (cartsIds[i] == id) {
+      idIsAlreadyExist = true;
+      break;
+    };
+  };
+
+  if (!idIsAlreadyExist) {
+    cartsIds.push(id);
+  };
+
+  await updateDoc(doc(db, 'userInfo', userId), {
+    cartsIdForBasket: cartsIds
+  });
+
+};
+
+const removeFromCart = async (id, userId) => {
+
+  const res = await getDoc(doc(db, 'userInfo', userId));
+
+  const cartIndex = res.data().cartsIdForBasket.indexOf(id);
+
+  const cartsIds = [...res.data().cartsIdForBasket];
+
+  cartsIds.splice(cartIndex, 1);
+
+  await updateDoc(doc(db, 'userInfo', userId), {
+    cartsIdForBasket: cartsIds
+  });
+
+};
+
+const getDataOfAddToCart = async (userId) => {
+  const res = await getDoc(doc(db, 'userInfo', userId));
+  
+  return res.data().cartsIdForBasket;
+};
+
+export { getDateFromDb, login, signUp, addDateForAdds, getUsersMsg, addImageInDatabase, logout, addUserMsg, resetPass, addMultiImagesInDatabase, addToCart, removeFromCart, getDataOfAddToCart };
