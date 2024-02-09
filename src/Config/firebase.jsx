@@ -39,7 +39,6 @@ const login = async (email, password) => {
   await signInWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
       const user = userCredential.user;
-      userId = user.uid
 
       const userDataRef = doc(db, 'userInfo', user.uid);
 
@@ -75,7 +74,8 @@ const signUp = async (name, fatherName, email, password) => {
         firstname: name,
         lastname: fatherName,
         userImg: '',
-        userEmail: user.email
+        userEmail: user.email,
+        cartsIdForBasket:[]
       });
 
       const userDataRef = doc(db, 'userInfo', user.uid);
@@ -195,6 +195,7 @@ const resetPass = async (email) => {
 
 const addToCart = async (id, userId) => {
   const res = await getDoc(doc(db, 'userInfo', userId));
+
   let idIsAlreadyExist = false;
 
   const cartsIds = [...res.data().cartsIdForBasket];
