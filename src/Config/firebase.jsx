@@ -22,6 +22,7 @@ let userId;
 const getDateFromDb = async (id) => {
   if (id) {
     const result = await getDoc(doc(db, 'products', id))
+
     return {
       ...result.data(),
       id: result.id
@@ -132,7 +133,7 @@ const addImageInDatabase = async (image) => {
   await uploadBytes(storageRef, image);
   const url = await getDownloadURL(storageRef);
   return url;
-};
+}
 
 const addDateForAdds = async (addInfo) => {
 

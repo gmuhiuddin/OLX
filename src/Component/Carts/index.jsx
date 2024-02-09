@@ -7,18 +7,23 @@ import StarRating from '../StartRating';
 
 function Carts({ cartInfo }) {
 
-    const { title, thumbnail, rating, price, images, brand, category, description, discountPercentage, id, stock, productId } = cartInfo;
+    const { title, thumbnail, rating, price, images, brand, category, description, discountPercentage, id, stock } = cartInfo;
 
     let navigate = useNavigate();
 
     let [isLiked, setIsLiked] = useState(false);
     const dicountOutOf100Per = 100 - discountPercentage;
     const discountedPrice = price / 100 * dicountOutOf100Per;
+console.log(cartInfo);
+    const likeIsClickFunc = () => {
+        setIsLiked(!isLiked);
+        // isLiked?
+    };
 
     return (
 
         <div className="carts">
-            <div onClick={() => navigate(`item/${productId}`)} className='discount-thumbnail-container'>
+            <div onClick={() => navigate(`item/${id}`)} className='discount-thumbnail-container'>
                 <span className='discount-txt'>{discountPercentage}%</span>
                 <img className='thumbnail' src={thumbnail} />
             </div>
@@ -26,7 +31,7 @@ function Carts({ cartInfo }) {
             <div className='txt-heart-container'>
                 <span className='price-txt'>$<ins>{discountedPrice.toFixed(1)}</ins> <del>{price}</del></span>
 
-                <img onClick={() => setIsLiked(!isLiked)} className={isLiked ? 'clicked-heart' : 'heart'} src={isLiked ? likedHeartImg : heartImg} />
+                <img onClick={likeIsClickFunc} className={isLiked ? 'clicked-heart' : 'heart'} src={isLiked ? likedHeartImg : heartImg} />
 
             </div>
             <br />

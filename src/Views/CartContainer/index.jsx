@@ -18,7 +18,7 @@ function CartContainer() {
         result.forEach((item) => {
             arr.push({
                 ...item.data(),
-                productId: item.id
+                id: item.id
             })
         })
         setProducts(arr)
