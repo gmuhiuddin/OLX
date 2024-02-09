@@ -2,7 +2,7 @@ import './style.css'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signUp } from '../../Config/firebase'
-import { setUser } from '../../store/userInfoSlice';
+import { setUser, removeUser } from '../../store/userInfoSlice';
 
 function SignUp() {
     const navigate = useNavigate();
@@ -15,7 +15,14 @@ function SignUp() {
             
             dispatch(setUser(result));
 
-            typeof result  == 'object' ? window.location.pathname = '/' : alert(result);
+            if(typeof result == 'object'){
+                dispatch(setUser(result));
+                window.location.pathname = '/'
+            } else{
+                alert(result);
+                dispatch(removeUser());
+            };
+
         } else {
             e.target[4].style.boxShadow = '0px 0px 7px rgb(255, 0, 0)';
             e.target[4].value = '';

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import './style.css'
 import { login } from '../../Config/firebase'
-import { setUser } from '../../store/userInfoSlice';
+import { setUser, removeUser } from '../../store/userInfoSlice';
 
 function Login() {
     const navigate = useNavigate();
@@ -12,10 +12,14 @@ function Login() {
         e.preventDefault();
         const result = await login(e.target[0].value, e.target[1].value);
 
-        dispatch(setUser(result));
-
-        typeof result == 'object' ? window.location.pathname = '/' : alert(result);
-        e.target[1].value = '';
+        if(typeof result == 'object'){
+            dispatch(setUser(result));
+            window.location.pathname = '/'
+        } else{
+            alert(result);
+            dispatch(removeUser());
+            e.target[1].value = '';
+        };
     };
 
     return (
