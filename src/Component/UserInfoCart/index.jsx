@@ -21,7 +21,7 @@ function UserInfoCart({ userEmail, setUserInfoCartView }) {
         <div className='user-info-cart'>
             <span className='email-txt'>Email: {userEmail}</span>
             <br />
-            <a className='logout-anchor' href='/' onClick={logoutFunc}>Logout</a>
+            <a className='logout-anchor' onClick={logoutFunc}>Logout</a>
         </div>
     )
 

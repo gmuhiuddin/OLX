@@ -36,10 +36,16 @@ function Carts({ cartInfo }) {
     };
 
     const likeIsClickFunc = async () => {
-        setIsLiked(!isLiked);
-        !isLiked ?
-            await addToCart(id, res?.userId)
-            : await removeFromCart(id, res?.userId);
+        if(res?.user){
+
+            setIsLiked(!isLiked);
+            !isLiked ?
+                await addToCart(id, res?.userId)
+                : await removeFromCart(id, res?.userId);
+        }else{
+            alert('Please login then you like the cart');
+            navigate('/login');
+        }
     };
 
     return (
