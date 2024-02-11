@@ -1,12 +1,19 @@
 import './style.css';
 import { addDateForAdds, addImageInDatabase, addMultiImagesInDatabase } from '../../Config/firebase';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import MapForAddSell from '../../Component/Maps';
 
 const AddSellPost = () => {
     const [imageLink, setImageLink] = useState();
     const [imagesLinks, setImagesLinks] = useState([]);
+    const [latitude, setLatitude] = useState();
+    const [longitude, setLongitude] = useState();
     const navigate = useNavigate();
+
+    useEffect(() => {
+
+    }, [])
 
     const sellAddFucn = async (e) => {
         e.preventDefault();
@@ -98,6 +105,10 @@ const AddSellPost = () => {
 
                     <h1 style={{ textAlign: 'center' }}>Add Multiple Images</h1>
 
+                    <br />
+{longitude && 
+    <MapForAddSell longitude={longitude} latitude={latitude} setLatitude={setLatitude} setLongitude={setLongitude} />
+    }
                     <br />
 
                     <div className='add-multiple-images-conatiner'>
