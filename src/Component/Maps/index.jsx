@@ -20,7 +20,7 @@ function MapForAddSell({ latitude, longitude, setLatitude, setLongitude }) {
         latitude: latitude,
         zoom: 14
       }}
-      style={{ width: 600, height: 400 }}
+      style={{ width: '99%',margin: '0 auto', height: 400 }}
       mapStyle="mapbox://styles/mapbox/streets-v9"
     >
       <Marker

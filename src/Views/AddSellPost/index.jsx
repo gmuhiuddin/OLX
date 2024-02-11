@@ -12,7 +12,10 @@ const AddSellPost = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-
+        navigator.geolocation.getCurrentPosition(coords => {
+            setLatitude(coords.coords.latitude);
+            setLongitude(coords.coords.longitude);
+        });
     }, [])
 
     const sellAddFucn = async (e) => {
@@ -31,7 +34,9 @@ const AddSellPost = () => {
                 price: e.target[3].value,
                 thumbnail: imageLink,
                 images: imagesLinks,
-                date: date.getTime()
+                date: date.getTime(),
+                latitude,
+                longitude
             };
 
             try {
@@ -101,14 +106,18 @@ const AddSellPost = () => {
                             }} id='thumbnail-image' type='file' />
                         </div>
                     </div>
+
+                    <br />
+                    <h1 style={{ textAlign: 'center' }}>Add your location</h1>
+
+                    {longitude &&
+                        <MapForAddSell longitude={longitude} latitude={latitude} setLatitude={setLatitude} setLongitude={setLongitude} />
+                    }
+
                     <br />
 
                     <h1 style={{ textAlign: 'center' }}>Add Multiple Images</h1>
 
-                    <br />
-{longitude && 
-    <MapForAddSell longitude={longitude} latitude={latitude} setLatitude={setLatitude} setLongitude={setLongitude} />
-    }
                     <br />
 
                     <div className='add-multiple-images-conatiner'>
