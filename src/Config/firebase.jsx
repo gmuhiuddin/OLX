@@ -68,7 +68,6 @@ const signUp = async (name, fatherName, email, password) => {
     .then(async (userCredential) => {
 
       const user = userCredential.user;
-      userId = user.uid;
 
       await setDoc(doc(db, 'userInfo', user.uid), {
         firstname: name,
@@ -134,7 +133,7 @@ const addImageInDatabase = async (image) => {
   return url;
 }
 
-const addDateForAdds = async (addInfo) => {
+const addDateForAdds = async (addInfo, userId) => {
 
   const productId = await getProductId();
 

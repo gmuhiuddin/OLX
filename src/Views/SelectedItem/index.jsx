@@ -8,6 +8,7 @@ import { faChevronRight, faChevronLeft, faPhone, faComments, faLocationDot } fro
 import heartImg from '../../Component/Carts/image-PhotoRoom.png-PhotoRoom-removebg-preview.png';
 import likedHeartImg from '../../Component/Carts/image-PhotoRoom.png-PhotoRoom__1_-removebg-preview.png'
 import { getDateFromDb } from '../../Config/firebase';
+import { MapForDetailPage } from '../../Component/Maps';
 
 function SeletedItem() {
 
@@ -33,7 +34,7 @@ function SeletedItem() {
     if (!product) {
         return <Loader />
     };
-
+console.log(product);
     return (
         <div>
             <div className='container'>
@@ -60,6 +61,15 @@ function SeletedItem() {
                         <span style={{ fontSize: 33, fontWeight: '700', display: 'block', textAlign: 'left', marginLeft: 19 }}>Location</span>
                         <br />
                         <span style={{ fontSize: 25, display: 'block', textAlign: 'left', marginLeft: 19 }}><FontAwesomeIcon style={{ color: '#002f34' }} icon={faLocationDot} /> Malir, Karachi</span>
+                        <br />
+                        {product?.latitude && <MapForDetailPage latitude={product?.latitude} longitude={product?.longitude} />}
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                     </div>
                 </div>
             </div>

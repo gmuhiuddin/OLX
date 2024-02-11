@@ -2,13 +2,15 @@ import './style.css';
 import { addDateForAdds, addImageInDatabase, addMultiImagesInDatabase } from '../../Config/firebase';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MapForAddSell from '../../Component/Maps';
+import { MapForAddSell } from '../../Component/Maps';
+import { useSelector } from 'react-redux';
 
 const AddSellPost = () => {
     const [imageLink, setImageLink] = useState();
     const [imagesLinks, setImagesLinks] = useState([]);
     const [latitude, setLatitude] = useState();
     const [longitude, setLongitude] = useState();
+    const res = useSelector(res => res.userSlice.userInfo)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,12 +18,12 @@ const AddSellPost = () => {
             setLatitude(coords.coords.latitude);
             setLongitude(coords.coords.longitude);
         });
-    }, [])
-
+    }, []);
+    
     const sellAddFucn = async (e) => {
         e.preventDefault();
-
-        if (!e.target[4].files[0] || !e.target[5].files[0] || !e.target[6].files[0] || !e.target[7].files[0] || !e.target[8].files[0]) {
+        
+        if (!e.target[4].files[0] || !e.target[6].files[0] || !e.target[7].files[0] || !e.target[8].files[0] || !e.target[9].files[0]) {
             alert('Please enter thumbnail and multiple images');
         } else {
 
@@ -40,7 +42,7 @@ const AddSellPost = () => {
             };
 
             try {
-                await addDateForAdds(addInfo);
+                await addDateForAdds(addInfo, res.userId);
                 e.target[0].value = '';
                 e.target[1].value = '';
                 e.target[2].value = '';

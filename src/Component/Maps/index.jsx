@@ -31,6 +31,28 @@ function MapForAddSell({ latitude, longitude, setLatitude, setLongitude }) {
       </Marker>
     </Map>
   );
-}
+};
 
-export default MapForAddSell;
+function MapForDetailPage({ latitude, longitude}) {
+
+  return (
+    <Map
+      mapboxAccessToken="pk.eyJ1IjoiYmVuZWhta2UiLCJhIjoiY2plYTl6b3c2MHg5ODJxbGV4aXR4Z3p6YSJ9.d3jSAbsqSmpJwyVcp9iXbw"
+      initialViewState={{
+        longitude: longitude,
+        latitude: latitude,
+        zoom: 10
+      }}
+      style={{ width: '99%', margin:'0 auto', height: '57%' }}
+      mapStyle="mapbox://styles/mapbox/streets-v9"
+    >
+      <Marker
+        draggable={false}
+        longitude={longitude} latitude={latitude} anchor="bottom" >
+        <img height={30} src={markerImage} />
+      </Marker>
+    </Map>
+  );
+};
+
+export { MapForAddSell, MapForDetailPage };
