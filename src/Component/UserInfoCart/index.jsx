@@ -12,6 +12,7 @@ function UserInfoCart({ userEmail, setUserInfoCartView }) {
             await logout();
             dispatch(removeUser());
             setUserInfoCartView(false);
+            window.location.pathname = '/';
         } catch (e) {
             alert(e.message);
         }
