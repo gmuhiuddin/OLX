@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
-import {getDateFromDb} from '../../Config/firebase';
+import { getDateFromDb } from '../../Config/firebase';
 import './style.css';
 import Loader from '../Loader';
 import CategoryCartsContainer from '../../Component/Category-carts-container';
 
 function CartContainer() {
     const [products, setProducts] = useState([]);
-    
+    const [categories, setCategories] = useState([]);
+
     useEffect(() => {
-        getProducts()
+        getProducts();
     }, []);
 
     async function getProducts() {
-        let result =  await getDateFromDb();
+        let result = await getDateFromDb();
         let arr = [];
 
         result.forEach((item) => {
@@ -21,26 +22,45 @@ function CartContainer() {
                 id: item.id
             })
         })
-        setProducts(arr)
+        setProducts(arr);
+
     };
 
-    if (!products.length) {
+    const checkTheCategories = () => {
+        let arr = [...categories];
+
+        products.forEach(res => {
+            let alreadyExist = false;
+
+            arr.forEach(result => {
+                if (res?.category == result) {
+                    alreadyExist = true;
+                };
+            });
+
+            if (!alreadyExist) {
+                arr.push(res?.category);
+
+                setCategories(arr);
+            };
+
+
+        })
+    };
+
+    if (products.length) {
+        checkTheCategories();
+    };
+
+    if (!categories.length) {
         return <Loader />
     };
 
     return (
         <div className="carts-container">
-            <CategoryCartsContainer products={products} category={'Mobiles'} />
-            <CategoryCartsContainer products={products} category={'Bikes'} />
-            <CategoryCartsContainer products={products} category={'laptops'} />
-            <CategoryCartsContainer products={products} category={'Property For Rent'} />
-            <CategoryCartsContainer products={products} category={'Property For Sale'} />
-            <CategoryCartsContainer products={products} category={'Vehicles'} />
-            <CategoryCartsContainer products={products} category={'fragrances'} />
-            <CategoryCartsContainer products={products} category={'groceries'} />
-            <CategoryCartsContainer products={products} category={'home-decoration'} />
-            <CategoryCartsContainer products={products} category={'skincare'} />
-            <CategoryCartsContainer products={products} category={'smartphones'} />
+            {categories.map((res, key) => {
+                return <CategoryCartsContainer key={key} products={products} category={res} />
+            })}
         </div>
     )
 };
