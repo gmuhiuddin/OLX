@@ -31,20 +31,6 @@ function SeletedItem() {
         checkTheCarts();
     }, []);
 
-    useEffect(() => {
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${product?.latitude}&lon=${product?.longitude}`)
-            .then(response => response.json())
-            .then(data => {
-                const locationName = data.address.town + ", " + data.address.city;
-                
-                setLocation(locationName);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLocation('err');
-            });
-    }, [product])
-
     async function getProducts() {
         const res = await getDateFromDb(id)
         setProduct(res);
@@ -77,6 +63,20 @@ function SeletedItem() {
             navigate('/login');
         };
     };
+
+    useEffect(() => {
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${product?.latitude}&lon=${product?.longitude}`)
+            .then(response => response.json())
+            .then(data => {
+                const locationName = data.address.town + ", " + data.address.city;
+                
+                setLocation(locationName);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLocation('err');
+            });
+    }, [product]);
 
     if (!product) {
         return <Loader />

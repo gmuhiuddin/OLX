@@ -19,8 +19,7 @@
 
 .image {
   margin: 0 auto;
-  height: auto;
-  max-height: 71vh; /* Adjust as needed */
+  width: 43%;
   opacity: 1;
   animation: fadeIn 0.5s ease-in-out; /* Add a transition effect for opacity */
 }
