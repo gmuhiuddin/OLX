@@ -12,6 +12,10 @@ function CartContainer() {
         getProducts();
     }, []);
 
+    useEffect(() => {
+        checkTheCategories();
+    }, [products]);
+
     async function getProducts() {
         let result = await getDateFromDb();
         let arr = [];
@@ -46,10 +50,6 @@ function CartContainer() {
 
 
         })
-    };
-
-    if (products.length) {
-        checkTheCategories();
     };
 
     if (!categories.length) {

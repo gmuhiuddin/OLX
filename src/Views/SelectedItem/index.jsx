@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faChevronLeft, faPhone, faComments, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faPhone, faComments, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../Loader';
 import './style.css';
 import ImageScroll from '../../Component/ImagesScrollGrid';
@@ -16,7 +16,8 @@ function SeletedItem() {
 
     const [product, setProduct] = useState();
     const [isLiked, setIsLiked] = useState(false);
-    const res = useSelector(res => res.userSlice.userInfo)
+    const res = useSelector(res => res.userSlice.userInfo);
+    const [location, setLocation] = useState();
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -29,6 +30,20 @@ function SeletedItem() {
         getProducts();
         checkTheCarts();
     }, []);
+
+    useEffect(() => {
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${product?.latitude}&lon=${product?.longitude}`)
+            .then(response => response.json())
+            .then(data => {
+                const locationName = data.address.town + ", " + data.address.city;
+                
+                setLocation(locationName);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLocation('err');
+            });
+    }, [product])
 
     async function getProducts() {
         const res = await getDateFromDb(id)
@@ -92,7 +107,9 @@ function SeletedItem() {
                     <div className='locaiton-container'>
                         <span style={{ fontSize: 33, fontWeight: '700', display: 'block', textAlign: 'left', marginLeft: 19 }}>Location</span>
                         <br />
-                        <span style={{ fontSize: 25, display: 'block', textAlign: 'left', marginLeft: 19 }}><FontAwesomeIcon style={{ color: '#002f34' }} icon={faLocationDot} /> Malir, Karachi</span>
+                        <span style={{ fontSize: 25, display: 'block', textAlign: 'left', marginLeft: 19 }}><FontAwesomeIcon style={{ color: '#002f34' }} icon={faLocationDot} /> {location != 'err' && location}
+                        {location == 'err' && ' Malir, Karachi'}
+                        </span>
                         <br />
 
                         {product?.latitude && <MapForDetailPage latitude={product?.latitude} longitude={product?.longitude} />}
@@ -123,7 +140,8 @@ function SeletedItem() {
                 <br />
                 <span style={{ display: 'flex', justifyContent: 'space-between' }}>
 
-                    <span style={{ fontSize: 25, display: 'block', textAlign: 'left', marginLeft: 19 }}><FontAwesomeIcon style={{ color: '#002f34' }} icon={faLocationDot} /> Malir, Karachi</span>
+                    <span style={{ fontSize: 25, display: 'block', textAlign: 'left', marginLeft: 19 }}><FontAwesomeIcon style={{ color: '#002f34' }} icon={faLocationDot} /> {location != 'err' && location}
+                        {location == 'err' && ' Malir, Karachi'}</span>
 
                     <span style={{ fontSize: 25, marginRight: 19 }}>
                         {Math.ceil(daysAgo) <= 1 ? Math.ceil(daysAgo) + ' day ago' : Math.ceil(daysAgo) + ' days ago'}
@@ -140,7 +158,7 @@ function SeletedItem() {
             </div>
             <br />
         </div>
-    )
-}
+    );
+};
 
 export default SeletedItem;
