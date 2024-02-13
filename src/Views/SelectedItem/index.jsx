@@ -37,26 +37,26 @@ function SeletedItem() {
 
     const checkTheCarts = async () => {
         const result = await getDataOfAddToCart(res?.userId);
-        
-        for(let i = 0; i < result.length; i++) {
-    
-        if (result[i] == id) {
-            setIsLiked(true);
-            break;
-        };
-        
+
+        for (let i = 0; i < result.length; i++) {
+
+            if (result[i] == id) {
+                setIsLiked(true);
+                break;
+            };
+
         };
     };
 
     const likeIsClickFunc = async () => {
-        
+
         if (res?.user) {
 
             setIsLiked(!isLiked);
 
             !isLiked ?
-            await addToCart(id, res?.userId)
-            :await removeFromCart(id, res?.userId);
+                await addToCart(id, res?.userId)
+                : await removeFromCart(id, res?.userId);
         } else {
             alert('Please login then you like the cart');
             navigate('/login');
@@ -94,14 +94,18 @@ function SeletedItem() {
                         <br />
                         <span style={{ fontSize: 25, display: 'block', textAlign: 'left', marginLeft: 19 }}><FontAwesomeIcon style={{ color: '#002f34' }} icon={faLocationDot} /> Malir, Karachi</span>
                         <br />
+
                         {product?.latitude && <MapForDetailPage latitude={product?.latitude} longitude={product?.longitude} />}
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+                        {product?.latitude &&
+                            <div>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                            </div>}
                     </div>
                 </div>
             </div>
