@@ -37,7 +37,7 @@ function SeletedItem() {
     };
 
     const checkTheCarts = async () => {
-        const result = await getDataOfAddToCart(res?.userId);
+        const result = await getDataOfAddToCart(res.userId);
 
         for (let i = 0; i < result.length; i++) {
 
@@ -64,19 +64,19 @@ function SeletedItem() {
         };
     };
 
-    useEffect(() => {
+    if(product){
         fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${product?.latitude}&lon=${product?.longitude}`)
             .then(response => response.json())
             .then(data => {
-                const locationName = data.address.town + ", " + data.address.city;
-                
-                setLocation(locationName);
+                const locationName = data.address?.town + ", " + data.address?.city;
+
+                data.address ? setLocation(locationName) : setLocation('err');
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
                 setLocation('err');
             });
-    }, [product]);
+    };
 
     if (!product) {
         return <Loader />
