@@ -81,7 +81,7 @@ function SeletedItem() {
     if (!product) {
         return <Loader />
     };
-
+    
     return (
         <div>
             <div className='container'>
@@ -89,7 +89,7 @@ function SeletedItem() {
                 <div style={{ width: '51%', display: 'flex', flexDirection: 'column', height: '79vh' }}>
                     <div className="user-info-container">
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <img className='user-image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQLHZh0aF5Og2DF4G19yPVx_QGjXfaBByFZA&usqp=CAU' alt='user-image' />
+                            <img className='user-image' src={product?.userImg ? product?.userImg : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQLHZh0aF5Og2DF4G19yPVx_QGjXfaBByFZA&usqp=CAU'}alt='user-image' />
                             <div>
                                 <span className='user-name txt'>{product?.firstname ? product.firstname + " " + product.lastname : 'Ghulam Muhiuddin'}</span>
                                 <span className='txt'>Member since in 2021</span>
