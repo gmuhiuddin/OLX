@@ -46,8 +46,8 @@ const router = createBrowserRouter([
         element: <SignUP />,
       },
       {
-        path: "/addSellPost",
-        element: < AddSellPost />,
+        path: "/addsellpost",
+        element: <AddSellPost />,
       },
       {
         path: "/passresetpage",

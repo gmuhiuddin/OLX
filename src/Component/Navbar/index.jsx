@@ -65,7 +65,7 @@ const Navbar = () => {
               }
 
               <div onClick={() => {
-                userData ? navigate('/addSellPost') : navigate('/login')
+                userData ? navigate('/addsellpost') : navigate('/login')
               }} className='btn-container'>
                 <img src='https://www.olx.com.pk/assets/iconSellBorder_noinline.d9eebe038fbfae9f90fd61d971037e02.svg' />
                 <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><span style={{ fontSize: 37, marginBottom: 7 }}>+</span> SELL</span>
