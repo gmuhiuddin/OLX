@@ -88,8 +88,6 @@ const signUp = async (name, fatherName, email, password) => {
       };
 
       result = obj;
-
-      // ...
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -131,7 +129,7 @@ const addImageInDatabase = async (image) => {
   await uploadBytes(storageRef, image);
   const url = await getDownloadURL(storageRef);
   return url;
-}
+};
 
 const addDateForAdds = async (addInfo, userId) => {
 
