@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import './style.css';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import UserInfoCart from '../UserInfoCart';
-import { useNavigate } from 'react-router-dom';
 import SmallLoader from '../SmallLoader';
-import { useSelector } from 'react-redux';
+import './style.css';
 
 const Navbar = () => {
 
@@ -49,12 +49,11 @@ const Navbar = () => {
             <input className='input' placeholder='Find Cars, Mobiles Phone and more...' />
             <FontAwesomeIcon className='search-icon' icon={faMagnifyingGlass} />
 
-            <div style={{ display: 'flex', alignItems: 'center' }}>
               {loader ?
                 <SmallLoader /> :
                 userData ?
                   <div>
-                    <span onClick={() => setUserInfoCartView(!userInfoCartView)} style={{ cursor: 'pointer', fontSize: 25, marginLeft: 7, fontWeight: '500' }} >{userData.firstname + ' ' + userData.lastname}</span>
+                    <span onClick={() => setUserInfoCartView(!userInfoCartView)} style={{ cursor: 'pointer', fontSize: 25, marginLeft: '11px', marginRight: '31px', fontWeight: '500' }} >{userData.firstname + ' ' + userData.lastname}</span>
                   </div>
                   :
                   <div>
@@ -70,7 +69,6 @@ const Navbar = () => {
                 <img src='https://www.olx.com.pk/assets/iconSellBorder_noinline.d9eebe038fbfae9f90fd61d971037e02.svg' />
                 <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><span style={{ fontSize: 37, marginBottom: 7 }}>+</span> SELL</span>
               </div>
-            </div>
 
           </div>
         </div>
